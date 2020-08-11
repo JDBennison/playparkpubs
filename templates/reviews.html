@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Play Park Pubs</title>
+</head>
+<body>
+    {% for review in reviews %}
+        {{ review.pub_name }}<br>
+        {{ review.pub_address }}<br>
+        {{ review.website }}<br>
+        {{ review.phone_number }}<br>
+        {{ review.review_headline }}<br>
+        {{ review.review_adult }}<br>
+        {{ review.review_kids }}<br>
+        {{ review.service }}<br>
+        {{ review.atmosphere }}<br>
+        {{ review.food }}<br>
+        {{ review.value }}<br>
+        {{ review.park }}<br>
+        {{ review.review_date }}<br>
+    {% endfor %}
+</body>
+</html>
