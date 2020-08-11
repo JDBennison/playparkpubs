@@ -17,6 +17,10 @@ app.secret_key = os.environ.get("SECRET_KEY")
 mongo = PyMongo(app)
 
 @app.route("/")
+@app.route("/index")
+def index():
+    return render_template("index.html")
+
 @app.route("/get_reviews")
 def get_reviews():
     reviews = mongo.db.reviews.find()
