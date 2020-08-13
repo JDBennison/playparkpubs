@@ -1,18 +1,24 @@
 {% extends "base.html" %}
 {% block content %}
-    {% for review in reviews %}
-        {{ review.pub_name }}<br>
-        {{ review.pub_address }}<br>
-        {{ review.website }}<br>
-        {{ review.phone_number }}<br>
-        {{ review.review_headline }}<br>
-        {{ review.review_adult }}<br>
-        {{ review.review_kids }}<br>
-        {{ review.service }}<br>
-        {{ review.atmosphere }}<br>
-        {{ review.food }}<br>
-        {{ review.value }}<br>
-        {{ review.park }}<br>
-        {{ review.review_date }}<br>
+
+<h2 class="page-title">Reviews</h2>
+
+<div class="row">
+{% for review in reviews %}
+    <div class="col s12 m3">
+      <div class="card light-green darken-1">
+        <div class="card-content white-text">
+          <span class="card-title">{{ review.pub_name }}</span>
+          <p>{{ review.pub_address }}</p>
+          <strong>{{ review.review_headline }}</strong>
+        </div>
+        <div class="number-circle">
+          {{ review.total_score }}
+        </div>
+        <a class="right light-green lighten-4 light-green-text darken-4-text btn-small" href="">Review</a>
+      </div>
+    </div>
     {% endfor %}
+</div>
+
 {% endblock %}

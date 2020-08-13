@@ -25,7 +25,7 @@ def index():
 
 @app.route("/get_reviews")
 def get_reviews():
-    reviews = mongo.db.reviews.find()
+    reviews = mongo.db.reviews.find().sort("_id", -1)
     return render_template("reviews.html", reviews=reviews)
 
 
