@@ -19,7 +19,9 @@ mongo = PyMongo(app)
 @app.route("/")
 @app.route("/index")
 def index():
-    return render_template("index.html")
+    most_recent = mongo.db.reviews.find().limit(10).sort("_id", -1)
+    top_ten = mongo.db.reviews.find().limit(5).sort("total_score", -1)
+    return render_template("index.html", most_recent=most_recent, top_ten=top_ten)
 
 @app.route("/get_reviews")
 def get_reviews():

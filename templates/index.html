@@ -1,32 +1,85 @@
 {% extends "base.html" %}
 {% block content %}
-    <div class="container">
-        <div class="row">
-            <div class="col s12 l6 playground-container">
-                <h5>Finding the best pubs for the whole family.</h3>
-                <p>For families looking to find a pub with something for everyone. Great food and drinks for the grown ups and great play parks for the kids.</p>
-                <p>Enter your postcode to find Play Park Pubs near you!</p>
-                    <form action="" method="POST" class="col s12">
-                        <div class="row valign-wrapper center-align">
-                            <div class="input-field col s12 m8">
-                                <i class="fas fa-search prefix light-green-text text-darken-4"></i>
-                                <input type="text" name="query" id="query" minlength="3" class="validate">
-                                <label for="query">Enter Postcode</label>
+<main>
+    <section>
+    <!--Call to action-->
+        <div class="container">
+            <div class="row">
+                <div class="col s12 l6 playground-container">
+                    <h5>Finding the best pubs for the whole family.</h3>
+                    <p>For families looking to find a pub with something for everyone. Great food and drinks for the grown ups and great play parks for the kids.</p>
+                    <p>Enter your postcode to find Play Park Pubs near you!</p>
+                        <form action="" method="POST" class="col s12">
+                            <div class="row valign-wrapper center-align">
+                                <div class="input-field col s12 m8">
+                                    <i class="fas fa-search prefix light-green-text text-darken-4"></i>
+                                    <input type="text" name="query" id="query" minlength="3" class="validate">
+                                    <label for="query">Enter Postcode</label>
+                                </div>
+                                <div class="col s12 m4">
+                                    <button type="submit" class="light-green darken-1 btn text-shadow">
+                                    Search 
+                                    </button>
+                                </div>
                             </div>
-                            <div class="col s12 m4">
-                                <button type="submit" class="light-green darken-1 btn text-shadow">
-                                   Search 
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-            </div>
-            <div class="col hide-on-med-and-down m6 valign-wrapper playground-container">
-                <img class="playground-img" src="{{ url_for('static', filename='images/playground.png') }}" alt="Play park">
+                        </form>
+                </div>
+                <div class="col hide-on-med-and-down m6 valign-wrapper playground-container">
+                    <img class="playground-img" src="{{ url_for('static', filename='images/playground.png') }}" alt="Play park">
+                </div>
             </div>
         </div>
-    </div>
-
+    </section>
+    <section class="about-us">
+        <div class="row">
+            <div class="col s12 m8 grey-text text-lighten-4">
+                <h2>About Us</h2>
+                <p>We are the Storm family. James and Victoria Storm and our two kids, Fraser and Evony. After spending far too long trying to find a pub that had a great play park for the kiddos we decided to create our own website with the grown ups reviewing the food and the youngsters reviewing the park.</p>
+                <p>Victoria loves gin and sea food. James loves beer and pizza. They both love peace and quiet</p>
+                <p>Fraser loves pokemon and magic. Evony likes unicorns and making new friends. They both have very strong opinions on everything.</p>
+                <div class="center-align">
+                    <img class="storm-family" src="{{ url_for('static', filename='images/family.png') }}" alt="The Storm Family">
+                </div>
+            </div>
+            <div class="col s12 m4">
+                <div class="card">
+                    <div class="card-content">
+                        <h4>Recently Reviewed</h4>
+                        <ul>
+                        {% for review in most_recent %}
+                        <li><a href="#"><i class="fas fa-beer"></i> {{ review.pub_name }} - {{ review.review_date }}</a></li>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+    <div class="row">
+        <div class="col s12 m4">
+                <div class="card">
+                    <div class="card-content">
+                        <h4>Top Rated</h4>
+                        <ul>
+                        {% for review in top_ten %}
+                        <li><a href="#"><div class="number-circle">{{ review.total_score }}</div><div class="pub-name">  {{ review.pub_name }}</div> </a></li>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m8 center-align">
+                <h2>Contact Us</h2>
+                <p>Do you want to write reviews for us?</p>
+                <p>Do you want us to come to your pub?</p>
+                <p>Do you have a question about one of our reviews?</p>
+                <p>Then write to us! We're always happy to hear from everyone and will respond as soon as possible!</p>
+                <a href="" class="light-green waves-effect waves-light btn"><i class="fas fa-envelope left"></i> Contact Us</a>
+            </div>
+        </div>    
+    </section>
+</main>
 
     
 {% endblock %}

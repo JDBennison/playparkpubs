@@ -11,6 +11,20 @@ nav .brand-logo img {
     border: 3px solid black;
 }
 
+
+.line-spacing {
+    margin-left: 5px;
+}
+
+.page-footer {
+    padding-top: 0;
+}
+
+.footer-spacing {
+    margin-bottom: 0;
+}
+
+/*-----------------index.html*/
 .playground-img {
     width: 100%;
     height: auto;
@@ -18,5 +32,33 @@ nav .brand-logo img {
 
 .playground-container {
     height: 60vh;
-    
+}
+
+.about-us {
+    background-color: #8bc34a;
+}
+
+.storm-family {
+    width: 50%;
+    margin: 5px auto;
+    border: 3px solid black;
+}
+
+.number-circle {
+    width: 60px;
+    line-height: 55px;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 32px;
+    border: 2px solid #666;
+    display: inline-block;
+    background-color: #8bc34a;
+    color: black;
+}
+
+.pub-name {
+    display: inline-block;
+    position: relative;
+    top: -7px;
+    left: 7px;
 }
