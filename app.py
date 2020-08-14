@@ -35,6 +35,11 @@ def read_review(review_id):
     return render_template("read_review.html", review=review)
 
 
+@app.route("/add_review")
+def add_review():
+    return render_template("add_review.html")
+
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
     port=int(os.environ.get("PORT")), debug=True)

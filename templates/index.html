@@ -47,7 +47,7 @@
                         <h4>Recently Reviewed</h4>
                         <ul>
                         {% for review in most_recent %}
-                        <li><a href="#"><i class="fas fa-beer"></i> {{ review.pub_name }} - {{ review.review_date }}</a></li>
+                        <li><a href="{{ url_for('read_review', review_id=review._id) }}"><i class="fas fa-beer"></i> {{ review.pub_name }} - {{ review.review_date }}</a></li>
                         {% endfor %}
                         </ul>
                     </div>
@@ -63,7 +63,7 @@
                         <h4>Top Rated</h4>
                         <ul>
                         {% for review in top_ten %}
-                        <li><a href="#"><div class="number-circle">{{ review.total_score }}</div><div class="pub-name">  {{ review.pub_name }}</div> </a></li>
+                        <li><a href="{{ url_for('read_review', review_id=review._id) }}"><div class="number-circle">{{ review.total_score }}</div><div class="pub-name">  {{ review.pub_name }}</div> </a></li>
                         {% endfor %}
                         </ul>
                     </div>
