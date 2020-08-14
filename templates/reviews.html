@@ -15,7 +15,7 @@
         <div class="number-circle">
           {{ review.total_score }}
         </div>
-        <a class="right light-green lighten-4 light-green-text darken-4-text btn-small" href="">Review</a>
+        <a class="right light-green lighten-4 light-green-text darken-4-text btn-small" href="{{ url_for('get_reviews/{{ review.url }}') }}">Review</a>
       </div>
     </div>
     {% endfor %}

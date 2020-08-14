@@ -29,6 +29,30 @@ def get_reviews():
     return render_template("reviews.html", reviews=reviews)
 
 
+@app.route("/get_reviews/<url>", methods=["GET", "POST"])
+def review(url):
+    review = {} 
+    data = mongo.db.reviews.find()
+    for obj in data:
+        if obj["url"] == url:
+            review = obj
+
+    return "<h1>" + review["pub_name"] + "</h1>"
+
+
+
+@app.route("/profile/<username>", methods=["GET", "POST"])
+def profile(username):
+    #grab the session users username from db
+    username = mongo.db.users.find_one(
+        {"username": session["user"]})["username"]
+
+    if session["user"]:
+        return render_template("profile.html", username=username)
+    
+    return redirect(url_for("login"))
+
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
     port=int(os.environ.get("PORT")), debug=True)
