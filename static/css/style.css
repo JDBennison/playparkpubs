@@ -72,3 +72,34 @@ nav .brand-logo img {
 .card {
     height: 42vh;
 }
+
+.review-img {
+    width: 100%;
+    height: auto;
+}
+
+.stars-outer {
+  display: inline-block;
+  position: relative;
+  font-family: "Font Awesome 5 Free";
+}
+ 
+.stars-outer::before {
+  content: "\f005 \f005 \f005 \f005 \f005";
+  font-weight: 400;
+}
+ 
+.stars-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+}
+ 
+.stars-inner::before {
+  content: "\f005 \f005 \f005 \f005 \f005";
+  color: #f8ce0b;
+  font-weight: 900;
+}
