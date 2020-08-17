@@ -22,7 +22,7 @@
             <li><a href="{{ url_for('get_reviews') }}">Reviews</a></li>
             <li><a href="">Profile</a></li>
             <li><a href="{{ url_for('add_review') }}">New Review</a></li>
-            <li><a href="">Log In</a></li>
+            <li><a href="{{ url_for('login') }}">Log In</a></li>
             <li><a href="{{ url_for('register') }}">Register</a></li>
             <li><a href="">Contact Us</a></li>
         </ul>
@@ -35,7 +35,7 @@
         <li><a href="{{ url_for('get_reviews') }}">Reviews</a></li>
         <li><a href="">Profile</a></li>
         <li><a href="{{ url_for('add_review') }}">New Review</a></li>
-        <li><a href="">Log In</a></li>
+        <li><a href="{{ url_for('login') }}">Log In</a></li>
         <li><a href="{{ url_for('register') }}">Register</a></li>
         <li><a href="">Contact Us</a></li>
     </ul>
@@ -66,7 +66,7 @@
                     <li><a class="grey-text text-lighten-3" href="#!">Reviews</a></li>
                     <li><a class="grey-text text-lighten-3" href="#!">Write a Review</a></li>
                     <li><a class="grey-text text-lighten-3" href="#!">Contact Us</a></li>
-                    <li><a class="grey-text text-lighten-3" href="#!">Login</a></li>
+                    <li><a class="grey-text text-lighten-3" href="{{ url_for('login') }}">Login</a></li>
                     <li><a class="grey-text text-lighten-3" href="{{ url_for('register') }}">Register</a></li>
                 </ul>
             </div>

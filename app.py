@@ -53,6 +53,30 @@ def register():
     return render_template("register.html")
 
 
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        #check if username exists in db
+        existing_user = mongo.db.users.find_one(
+            {"username": request.form.get("username").lower()})
+
+        if existing_user:
+            # ensure hashed password is correct
+            if check_password_hash(
+                existing_user["password"], request.form.get("password")):
+                    session["user"] = request.form.get("username").lower()
+                    flash("Welcome {}".format(request.form.get("username").capitalize()))
+            else:
+                # invalid password match
+                flash("Incorrect Username and/or Password")
+                return redirect(url_for("login"))
+
+        else:
+            # username doesnt exist
+            flash("Incorrect Username and/or Password")
+            return redirect(url_for("login"))
+    return render_template("login.html")
+
 @app.route("/read_review/<review_id>", methods=["GET", "POST"])
 def read_review(review_id):
     review = mongo.db.reviews.find_one({"_id": ObjectId(review_id)})
@@ -62,7 +86,7 @@ def read_review(review_id):
 @app.route("/add_review", methods=["GET", "POST"])
 def add_review():
     if request.method == "POST":
-        ratings = [request.form.get("service"), request.form.get("atmosphere"), request.form.get("food"), request.form.get("value"), request.form.get("park")]
+        ratings = [int(request.form.get("service")), int(request.form.get("atmosphere")), int(request.form.get("food")), int(request.form.get("value")), int(request.form.get("park"))]
         total_score = (sum(ratings)) * 0.4
         review = {
             "pub_name": request.form.get("pub_name"),
