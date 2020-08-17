@@ -1,48 +1,35 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %} 
+
+{% block content %}
 
 <h3 class="light-green-text text-darken-4 center-align">Add Review</h3>
 
 <div class="row card-panel grey lighten-5">
-  <form class="col s12" method="POST" action="">
+  <form class="col s12" method="POST" action="{{ url_for('add_review') }}">
+  <!--pub name input-->
     <div class="row">
       <div class="input-field col s6">
         <i class="fas fa-edit prefix light-green-text text-darken-4"></i>
-        <input
-          id="pub_name"
-          name="pub_name"
-          minlength="5"
-          maxlength="50"
-          type="text"
-          class="validate"
-          required
-        />
+        <input id="pub_name" name="pub_name" minlength="5" maxlength="50"
+          type="text" class="validate" required/>
         <label for="pub_name">Pub Name</label>
       </div>
+      <!--datepicker for review date-->
       <div class="input-field col s6">
             <i class="fas fa-calendar-alt prefix light-green-text text-darken-4"></i>
-            <input
-            id="review_date"
-            name="review_date"
-            type="text"
-            class="datepicker validate"
-            required
-            />
+            <input id="review_date" name="review_date" type="text" class="datepicker validate"
+            required/>
             <label for="review_date">Date Visited</label>
       </div>
     </div>
+    <!--address input-->
     <div class="row">
       <div class="input-field col s6">
         <i class="fas fa-home prefix light-green-text text-darken-4"></i>
-        <input
-          id="pub_address"
-          name="pub_address"
-          minlength="5"
-          maxlength="75"
-          type="text"
-          class="validate"
-          required
-        />
+        <input id="pub_address" name="pub_address" minlength="5" maxlength="75"
+          type="text" class="validate" required/>
         <label for="pub_address">Pub Address</label>
+        <!--dynamic category selector-->
       </div>
         <div class="input-field col s6">
         <i class="fas fa-folder-open prefix light-green-text text-darken-4"></i>
@@ -56,58 +43,86 @@
         </div>
        
     </div>
+    <!--phone number input-->
     <div class="row">
       <div class="input-field col s6">
         <i class="fas fa-phone prefix light-green-text text-darken-4"></i>
-        <input
-          id="phone_number"
-          name="phone_number"
-          minlength="11"
-          maxlength="15"
-          type="tel"
-          class="validate"
-          required
-        />
+        <input id="phone_number" name="phone_number" minlength="11"
+          maxlength="15" type="tel" class="validate" required/>
         <label for="phone_number">Telephone Number</label>
       </div>
-    
+    <!--website input-->
     <div class="input-field col s6">
         <i class="fas fa-desktop prefix light-green-text text-darken-4"></i>
-        <input
-          id="website"
-          name="website"
-          minlength="5"
-          maxlength="30"
-          type="tel"
-          class="validate"
-          required
-        />
+        <input id="website" name="website" minlength="5" maxlength="30" type="tel" class="validate"
+          required />
         <label for="website">Website</label>
       </div>
       </div>
+    <!--textarea for headline-->  
     <div class="row">
       <div class="input-field col s12">
           <i class="fas fa-newspaper prefix light-green-text text-darken-4"></i>
-          <textarea id="review_headline" name="review_headline" minlength="5" maxlength="200" class="materialize-textarea validate"></textarea>
+          <textarea id="review_headline" name="review_headline" class="materialize-textarea validate" minlength="5"
+          maxlength="100" data-length="100" required></textarea>
           <label for="review_headline">Headline</label>
         </div>
     </div>
+    <!--text area for adult review-->
     <div class="row">
       <div class="input-field col s12">
           <i class="fas fa-align-left prefix light-green-text text-darken-4"></i>
-          <textarea id="review_adult" name="review_adult" minlength="5" class="materialize-textarea validate"></textarea>
+          <textarea id="review_adult" name="review_adult" minlength="5" class="materialize-textarea validate" required></textarea>
           <label for="review_adult">Adults' Review</label>
         </div>
     </div>
+    <!--text area for kids review-->
     <div class="row">
       <div class="input-field col s12">
           <i class="fas fa-child prefix light-green-text text-darken-4"></i>
-          <textarea id="review_kids" name="review_kids" minlength="5" maxlength="200" class="materialize-textarea validate"></textarea>
+          <textarea id="review_kids" name="review_kids" minlength="5" maxlength="200" class="materialize-textarea validate" required></textarea>
           <label for="review_kids">Kids' Review</label>
         </div>
     </div>
-    
+    <!--ratings input-->
+    <div class="row">
+        <div class="input-field col s1">
+        <i class="fas fa-star prefix light-green-text text-darken-4"></i>
+        </div>
+        <div class="input-field col s4">
+            <p class="range-field">
+                <label for="service">Service</label>
+                <input type="range" id="service" name="service" min="0" max="5" />
+            </p>
+            <p class="range-field">
+                <label for="atmosphere">Atmosphere</label>
+                <input type="range" id="atmosphere" name="atmosphere" min="0" max="5" />
+            </p>
+            <p class="range-field">
+                <label for="food">Food</label>
+                <input type="range" id="food" name="food" min="0" max="5" />
+            </p>
+            <p class="range-field">
+                <label for="value">Value</label>
+                <input type="range" id="value" name="value" min="0" max="5" />
+            </p>
+            <p class="range-field">
+                <label for="park">Park</label>
+                <input type="range" id="park" name="park" min="0" max="5" />
+            </p>
+        </div>
+    </div>
+
+    <!--submit button-->
+    <div class="row">
+        <div class="col s12 center-align">
+            <button type="submit" class="btn-large light-green darken-1 text-shadow">
+                Add review <i class="fas fa-plus-square right"></i>
+            </button>
+        </div>
+    </div>
   </form>
 </div>
 
 {% endblock %}
+

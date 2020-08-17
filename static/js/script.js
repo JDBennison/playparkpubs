@@ -1,6 +1,7 @@
 $(document).ready(function(){
     $('.sidenav').sidenav({edge: "right"});
     $('select').formSelect();
+    $('textarea#review_headline').characterCounter();
     $('.datepicker').datepicker({
         format: "dd mmmm, yyyy",
         yearRange: 3,
@@ -13,3 +14,4 @@ $(document).ready(function(){
 
 $('#textarea1').val('New Text');
   M.textareaAutoResize($('#textarea1'));
+

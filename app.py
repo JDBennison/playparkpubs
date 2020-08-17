@@ -3,7 +3,8 @@ from flask import (
     Flask, flash, render_template, 
     redirect, request, session, url_for)
 from flask_pymongo import PyMongo
-from bson.objectid import ObjectId 
+from bson.objectid import ObjectId
+from werkzeug.security import generate_password_hash, check_password_hash
 if os.path.exists("env.py"):
     import env
 
@@ -29,14 +30,44 @@ def get_reviews():
     return render_template("reviews.html", reviews=reviews)
 
 
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    return render_template("register.html")
+
+
 @app.route("/read_review/<review_id>", methods=["GET", "POST"])
 def read_review(review_id):
     review = mongo.db.reviews.find_one({"_id": ObjectId(review_id)})
     return render_template("read_review.html", review=review)
 
 
-@app.route("/add_review")
+@app.route("/add_review", methods=["GET", "POST"])
 def add_review():
+    if request.method == "POST":
+        ratings = [request.form.get("service"), request.form.get("atmosphere"), request.form.get("food"), request.form.get("value"), request.form.get("park")]
+        total_score = (sum(ratings)) * 0.4
+        review = {
+            "pub_name": request.form.get("pub_name"),
+            "pub_address": request.form.get("pub_address"),
+            "website": request.form.get("website"),
+            "phone_number": request.form.get("phone_number"),
+            "review_headline": request.form.get("review_headline"),
+            "review_adult": request.form.get("review_adult"),
+            "review_kids": request.form.get("review_kids"),
+            "service": request.form.get("service"),
+            "atmosphere": request.form.get("atmosphere"),
+            "food": request.form.get("food"),
+            "value": request.form.get("value"),
+            "park": request.form.get("park"),
+            "total_score": total_score,
+            "review_date": request.form.get("review_date"),
+            "category_name": request.form.getlist("category_name"),
+            "created_by": session["user"]
+        }
+        mongo.db.reviews.insert_one(review)
+        flash("Review Successfully Added")
+        return redirect(url_for("get_reviews"))
+
     categories = mongo.db.categories.find().sort("category_name", 1)
     return render_template("add_review.html", categories=categories)
 
