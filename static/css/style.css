@@ -34,18 +34,32 @@ nav .brand-logo img {
     height: auto;
 }
 
-.playground-container {
-    height: 60vh;
+.call-to-action {
+    margin-top: 55px;
 }
 
-.about-us {
+
+
+.reviews {
     background-color: #8bc34a;
 }
 
-.storm-family {
-    width: 50%;
-    margin: 5px auto;
-    border: 3px solid black;
+.link {
+    display: flow-root;
+    margin: 15px;
+}
+
+.card.horizontal .card-image {
+    max-width: 40%;
+}
+
+.pub-address {
+    font-size: 10px;
+}
+
+.review-truncate {
+    font-size: 12px;
+    font-style: italic;
 }
 
 .number-circle {

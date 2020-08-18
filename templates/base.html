@@ -19,7 +19,6 @@
         <a href="" data-target="mobile-demo" class="sidenav-trigger right"><i class="fas fa-bars"></i></a>
         <ul class="right hide-on-med-and-down">
             <li><a href="{{ url_for('index') }}">Home</a></li>
-            <li><a href="{{ url_for('get_reviews') }}">Reviews</a></li>
             <li><a href="">Profile</a></li>
             <li><a href="{{ url_for('add_review') }}">New Review</a></li>
             <li><a href="{{ url_for('login') }}">Log In</a></li>
@@ -32,7 +31,6 @@
     <ul class="sidenav" id="mobile-demo">
         <li><h4 class="center-align light-green-text text-darken-4">Play Park Pubs</h4></li>
         <li><a href="{{ url_for('index') }}">Home</a></li>
-        <li><a href="{{ url_for('get_reviews') }}">Reviews</a></li>
         <li><a href="">Profile</a></li>
         <li><a href="{{ url_for('add_review') }}">New Review</a></li>
         <li><a href="{{ url_for('login') }}">Log In</a></li>
@@ -63,8 +61,8 @@
         <div class="row footer-spacing">
             <div class="col l4 offset-l10 s12">
                 <ul>
-                    <li><a class="grey-text text-lighten-3" href="#!">Reviews</a></li>
-                    <li><a class="grey-text text-lighten-3" href="#!">Write a Review</a></li>
+                    <li><a class="grey-text text-lighten-3" href="{{ url_for('index') }}">Home</a></li>
+                    <li><a class="grey-text text-lighten-3" href="{{ url_for('add_review') }}">Write a Review</a></li>
                     <li><a class="grey-text text-lighten-3" href="#!">Contact Us</a></li>
                     <li><a class="grey-text text-lighten-3" href="{{ url_for('login') }}">Login</a></li>
                     <li><a class="grey-text text-lighten-3" href="{{ url_for('register') }}">Register</a></li>
