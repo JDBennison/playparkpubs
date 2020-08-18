@@ -7,15 +7,28 @@
     </div>
     <div class="col s12 m6 right-align">
         <h2>{{ review.pub_name }}</h2>
-        <p>{{ review.pub_address }}</p>
+        <p class="pub-address">{{ review.pub_address }}</p>
         <a href="{{ review.website }}" target="_blank">Website <i class="fas fa-desktop"></i></a>
         <p>{{ review.phone_number }} <i class="fas fa-phone"></i></a></p>
+        <div>
+        {% for category in review.category_name %}
+            <span class="chip">{{ category }}</span>
+        {% endfor%}
+        </div>
+        <a class="light-blue lighten-1 white-text btn-small" href="{{ url_for('edit_review', review_id=review._id) }}">
+            <i class="fas fa-edit left"></i> Edit
+        </a>
+        <a class="red lighten-1 white-text btn-small" href="">
+            <i class="fas fa-trash-alt left"></i> Delete
+        </a>
+        
+
     </div>
 </div>
 <div class="row">
     <div class="col s12">
         <h5>{{ review.review_headline }}</h5>
-        <p>Reviewed on {{ review.review_date }} by {{ review.created_by }}</p>
+        <p>Reviewed on {{ review.review_date }} by {{ review.created_by | capitalize }}</p>
         <h6>Grown Up Review</h6>
         <p>{{ review.review_adult }}</p>
         <h6>Kids Review</h6>

@@ -73,6 +73,7 @@ nav .brand-logo img {
     background-color: #8bc34a;
     color: black;
     margin-left: 20px;
+    margin-bottom: 20px;
 }
 
 .pub-name {
@@ -87,13 +88,20 @@ nav .brand-logo img {
     padding-top: 25px;
 }
 
-.card {
-    height: 42vh;
+h2 {
+    margin: 3.4rem 0 0 0;
+}
+
+.chip {
+  display: inline-block;
+  border-radius: 25px;
+  background-color: #f1f8e9;
 }
 
 .review-img {
     width: 100%;
     height: auto;
+    padding-top: 20px;
 }
 
 .stars-outer {
