@@ -19,10 +19,11 @@
         <a href="" data-target="mobile-demo" class="sidenav-trigger right"><i class="fas fa-bars"></i></a>
         <ul class="right hide-on-med-and-down">
             <li><a href="{{ url_for('index') }}">Home</a></li>
-            <li><a href="">Profile</a></li>
-            <li><a href="{{ url_for('add_review') }}">New Review</a></li>
-            <li><a href="{{ url_for('login') }}">Log In</a></li>
-            <li><a href="{{ url_for('register') }}">Register</a></li>
+            <li><a href="{{ url_for('get_categories') }}">Categories</a></li>
+            {% if session.user %}
+                <li><a href="{{ url_for('add_review') }}">New Review</a></li>
+                <li><a href="{{ url_for('profile', username=session['user']) }}">Profile</a></li>
+            {% endif %}
             <li><a href="">Contact Us</a></li>
         </ul>
         </div>
@@ -31,10 +32,11 @@
     <ul class="sidenav" id="mobile-demo">
         <li><h4 class="center-align light-green-text text-darken-4">Play Park Pubs</h4></li>
         <li><a href="{{ url_for('index') }}">Home</a></li>
-        <li><a href="">Profile</a></li>
-        <li><a href="{{ url_for('add_review') }}">New Review</a></li>
-        <li><a href="{{ url_for('login') }}">Log In</a></li>
-        <li><a href="{{ url_for('register') }}">Register</a></li>
+        <li><a href="{{ url_for('get_categories') }}">Categories</a></li>
+        {% if session.user %}
+            <li><a href="{{ url_for('add_review') }}">New Review</a></li>
+            <li><a href="{{ url_for('profile', username=session['user']) }}">Profile</a></li>
+        {% endif %}
         <li><a href="">Contact Us</a></li>
     </ul>
 </header>
@@ -62,10 +64,15 @@
             <div class="col l4 offset-l10 s12">
                 <ul>
                     <li><a class="grey-text text-lighten-3" href="{{ url_for('index') }}">Home</a></li>
-                    <li><a class="grey-text text-lighten-3" href="{{ url_for('add_review') }}">Write a Review</a></li>
+                    <li><a class="grey-text text-lighten-3" href="{{ url_for('get_categories') }}">Categories</a></li>
+                    {% if session.user %}
+                        <li><a class="grey-text text-lighten-3" href="{{ url_for('add_review') }}">Write a Review</a></li>
+                        <li><a class="grey-text text-lighten-3" href="{{ url_for('logout') }}">Log Out</a></li>
+                    {% else%}
+                        <li><a class="grey-text text-lighten-3" href="{{ url_for('login') }}">Login</a></li>
+                        <li><a class="grey-text text-lighten-3" href="{{ url_for('register') }}">Register</a></li>
+                    {% endif %}
                     <li><a class="grey-text text-lighten-3" href="#!">Contact Us</a></li>
-                    <li><a class="grey-text text-lighten-3" href="{{ url_for('login') }}">Login</a></li>
-                    <li><a class="grey-text text-lighten-3" href="{{ url_for('register') }}">Register</a></li>
                 </ul>
             </div>
         </div>

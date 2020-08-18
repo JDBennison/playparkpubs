@@ -45,6 +45,7 @@ def register():
         # put the new user into session cookie
         session["user"] = request.form.get("username").lower()
         flash("Registration Successful")
+        return redirect(url_for("profile", username=session["user"]))
     return render_template("register.html")
 
 
@@ -60,7 +61,9 @@ def login():
             if check_password_hash(
                 existing_user["password"], request.form.get("password")):
                     session["user"] = request.form.get("username").lower()
-                    flash("Welcome {}".format(request.form.get("username").capitalize()))
+                    flash("Welcome {}".format(
+                        request.form.get("username").capitalize()))
+                    return redirect(url_for("profile", username=session["user"]))
             else:
                 # invalid password match
                 flash("Incorrect Username and/or Password")
@@ -72,6 +75,23 @@ def login():
             return redirect(url_for("login"))
     return render_template("login.html")
 
+
+@app.route("/profile/<username>")
+def profile(username):
+    # grab the session user's username from db
+    username = mongo.db.users.find_one(
+        {"username": session["user"]})["username"]
+    return render_template("profile.html", username=username)
+
+
+@app.route("/logout")
+def logout():
+    # remove user from session cookies
+    flash("You have been logged out")
+    session.pop("user")
+    return redirect(url_for("login"))
+
+
 @app.route("/read_review/<review_id>", methods=["GET", "POST"])
 def read_review(review_id):
     review = mongo.db.reviews.find_one({"_id": ObjectId(review_id)})
@@ -82,7 +102,7 @@ def read_review(review_id):
 def add_review():
     if request.method == "POST":
         ratings = [int(request.form.get("service")), int(request.form.get("atmosphere")), int(request.form.get("food")), int(request.form.get("value")), int(request.form.get("park"))]
-        total_score = (sum(ratings)) * 0.4
+        total_score = round(((sum(ratings)) * 0.4), 1)
         review = {
             "pub_name": request.form.get("pub_name"),
             "pub_address": request.form.get("pub_address"),
@@ -139,6 +159,31 @@ def edit_review(review_id):
     review = mongo.db.reviews.find_one({"_id": ObjectId(review_id)})
     categories = mongo.db.categories.find().sort("category_name", 1)
     return render_template("edit_review.html", review=review, categories=categories)
+
+@app.route("/delete_review/<review_id>")
+def delete_review(review_id):
+    mongo.db.reviews.remove({"_id": ObjectId(review_id)})
+    flash("Review Successfully Deleted")
+    return redirect(url_for("index"))
+
+@app.route("/get_categories")
+def get_categories():
+    categories = list(mongo.db.categories.find().sort("category_name", 1))
+    return render_template("categories.html", categories=categories)
+
+
+@app.route("/add_category", methods=["GET", "POST"])
+def add_category():
+    if request.method == "POST":
+        category = {
+            "category_name": request.form.get("category_name")
+        }
+        mongo.db.categories.insert_one(category)
+        flash("New Category Added")
+        return redirect(url_for("get_categories"))
+        
+    return render_template("add_category.html")
+
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),

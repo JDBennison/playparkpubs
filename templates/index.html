@@ -67,10 +67,24 @@
                     </div>
                     <div class="hide-on-large-only">
                     <br>
-                        <a class="light-green lighten-1 white-text btn-small" 
+                        {% if session.user %}
+                            <a class="light-blue lighten-1 white-text btn-small" 
+                                href="{{ url_for('edit_review', review_id=review._id) }}">
+                                    <i class="fas fa-edit left"></i> Edit
+                            </a>
+                            <a class="red lighten-1 white-text btn-small" 
+                                href="{{ url_for('delete_review', review_id=review._id) }}">
+                                    <i class="fas fa-trash-alt left"></i> Delete
+                            </a>
+                        {% endif %}
+                        <a class="light-green lighten-1 white-text btn-small right" 
                             href="{{ url_for('read_review', review_id=review._id) }}">
                                 <i class="fas fa-align-left left"></i> Review
                         </a>
+                    </div>
+                </div>
+                <div class="card-action hide-on-med-and-down">
+                    {% if session.user %}
                         <a class="light-blue lighten-1 white-text btn-small" 
                             href="{{ url_for('edit_review', review_id=review._id) }}">
                                 <i class="fas fa-edit left"></i> Edit
@@ -79,20 +93,10 @@
                             href="">
                                 <i class="fas fa-trash-alt left"></i> Delete
                         </a>
-                    </div>
-                </div>
-                <div class="card-action hide-on-med-and-down">
-                    <a class="light-green lighten-1 white-text btn-small" 
+                    {% endif %}
+                    <a class="light-green lighten-1 white-text btn-small right" 
                         href="{{ url_for('read_review', review_id=review._id) }}">
                             <i class="fas fa-align-left left"></i> Review
-                    </a>
-                    <a class="light-blue lighten-1 white-text btn-small" 
-                        href="{{ url_for('edit_review', review_id=review._id) }}">
-                            <i class="fas fa-edit left"></i> Edit
-                    </a>
-                    <a class="red lighten-1 white-text btn-small" 
-                        href="">
-                            <i class="fas fa-trash-alt left"></i> Delete
                     </a>
                 </div>
             </div>
