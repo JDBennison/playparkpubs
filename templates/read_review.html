@@ -11,8 +11,8 @@
         <a href="{{ review.website }}" target="_blank">Website <i class="fas fa-desktop"></i></a>
         <p>{{ review.phone_number }} <i class="fas fa-phone"></i></a></p>
         <div>
-        {% for category in review.category_name %}
-            <span class="chip">{{ category }}</span>
+        {% for category in categories %}
+                <span class="chip">{{ category.category_name }}</span>
         {% endfor%}
         </div>
         <a class="light-blue lighten-1 white-text btn-small" href="{{ url_for('edit_review', review_id=review._id) }}">

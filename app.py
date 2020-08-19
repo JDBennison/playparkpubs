@@ -83,6 +83,16 @@ def profile(username):
         {"username": session["user"]})["username"]
     return render_template("profile.html", username=username)
 
+@app.route("/review_by_category/<category_id>")
+def review_by_category(category_id):
+    category = mongo.db.categories.find_one({"_id": ObjectId(category_id)})
+    reviews = []
+    for review in mongo.db.reviews.find():
+        if category_id in review["category_list"]:
+            reviews.append(review)
+    print(category)
+    return render_template("review_by_category.html", category=category, reviews=reviews)
+
 
 @app.route("/logout")
 def logout():
@@ -95,7 +105,11 @@ def logout():
 @app.route("/read_review/<review_id>", methods=["GET", "POST"])
 def read_review(review_id):
     review = mongo.db.reviews.find_one({"_id": ObjectId(review_id)})
-    return render_template("read_review.html", review=review)
+    categories = []
+    for ident in review["category_list"]:
+        category = mongo.db.categories.find_one({"_id": ObjectId(ident)})
+        categories.append(category)
+    return render_template("read_review.html", review=review, categories=categories)
 
 
 @app.route("/add_review", methods=["GET", "POST"])
@@ -118,7 +132,7 @@ def add_review():
             "park": request.form.get("park"),
             "total_score": total_score,
             "review_date": request.form.get("review_date"),
-            "category_name": request.form.getlist("category_name"),
+            "category_list": request.form.getlist("category_list"),
             "created_by": session["user"]
         }
         mongo.db.reviews.insert_one(review)
@@ -149,16 +163,22 @@ def edit_review(review_id):
             "park": request.form.get("park"),
             "total_score": total_score,
             "review_date": request.form.get("review_date"),
-            "category_name": request.form.getlist("category_name"),
+            "category_list": request.form.getlist("category_list"),
             "created_by": session["user"]
         }
         mongo.db.reviews.update({"_id": ObjectId(review_id)}, submit)
         flash("Review Successfully Updated")
         return redirect(url_for('read_review', review_id=ObjectId(review_id)))
 
+
     review = mongo.db.reviews.find_one({"_id": ObjectId(review_id)})
     categories = mongo.db.categories.find().sort("category_name", 1)
-    return render_template("edit_review.html", review=review, categories=categories)
+    prefilled_categories = []
+    for ident in review["category_list"]:
+        category = mongo.db.categories.find_one({"_id": ObjectId(ident)})
+        prefilled_categories.append(category)
+    
+    return render_template("edit_review.html", review=review, categories=categories, prefilled_categories=prefilled_categories)
 
 @app.route("/delete_review/<review_id>")
 def delete_review(review_id):

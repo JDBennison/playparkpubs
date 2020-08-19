@@ -19,10 +19,13 @@
                         <span class="card-title">{{ category.category_name }}</span>
                     </div>
                     <div class="card-action">
-                        <a href="#" class="btn-small light-green lighten-1">View Reviews</a>
+                        <a href="{{ url_for('review_by_category', category_id=category._id) }}" 
+                        class="btn-small light-green lighten-1">View Reviews</a>
                         {% if session.user %}
-                            <a href="{{ url_for('edit_category', category_id=category._id) }}" class="btn-small light-blue lighten-1">Edit</a>
-                            <a href="{{ url_for('delete_category', category_id=category._id) }}" class="btn-small red lighten-1">Delete</a>
+                            <a href="{{ url_for('edit_category', category_id=category._id) }}" 
+                            class="btn-small light-blue lighten-1">Edit</a>
+                            <a href="{{ url_for('delete_category', category_id=category._id) }}" 
+                            class="btn-small red lighten-1">Delete</a>
                         {% endif %}
                     </div>
                 </div>
