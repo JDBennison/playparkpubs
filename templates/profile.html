@@ -2,15 +2,39 @@
 {% block content %}
 
 
-    <div class="row">
-        <div class="col s12 m8 offset-m2">
-            <div class="card-panel">
-                <h3 class="center-align light-green-text text-darken-4">
-                    {{ username | capitalize }}'s Profile
-                </h3>
-            </div>
+
+<h3 class="center-align light-green-text text-darken-4">
+    {{ username | capitalize }}'s Profile
+</h3>
+<div class="row">
+{% for review in reviews %}
+    <div class="col s12 m6">
+        <div class="card hoverable">
+                <div class="card-content light-green-text text-darken-4">
+                    <span class="card-title">{{ review.pub_name }}</span>
+                    <p class="pub-address">{{ review.pub_address }}</p>
+                    <strong>{{ review.review_headline }}</strong>
+                </div>
+                <div class="card-action">
+                    {% if session.user %}
+                        <a class="light-blue lighten-1 white-text btn-small" 
+                            href="{{ url_for('edit_review', review_id=review._id) }}">
+                                <i class="fas fa-edit left"></i> Edit
+                        </a>
+                        <a class="red lighten-1 white-text btn-small" 
+                            href="">
+                                <i class="fas fa-trash-alt left"></i> Delete
+                        </a>
+                    {% endif %}
+                    <a class="light-green lighten-1 white-text btn-small" 
+                        href="{{ url_for('read_review', review_id=review._id) }}">
+                            <i class="fas fa-align-left left"></i> Review
+                    </a>
+                </div>            
         </div>
     </div>
 
+{% endfor %}  
+</div>
 
 {% endblock %}

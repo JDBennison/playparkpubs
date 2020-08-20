@@ -24,6 +24,13 @@ def index():
     reviews = mongo.db.reviews.find().sort("_id", -1)
     return render_template("index.html", most_recent=most_recent, reviews=reviews)
 
+@app.route("/search", methods=["GET", "POST"])
+def search():
+    query = request.form.get("query")
+    most_recent = mongo.db.reviews.find().limit(10).sort("_id", -1)
+    reviews = mongo.db.reviews.find({"$text": {"$search": query}})
+    return render_template("index.html", most_recent=most_recent, reviews=reviews)
+
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -81,7 +88,8 @@ def profile(username):
     # grab the session user's username from db
     username = mongo.db.users.find_one(
         {"username": session["user"]})["username"]
-    return render_template("profile.html", username=username)
+    reviews = mongo.db.reviews.find({"created_by": session["user"]})
+    return render_template("profile.html", username=username, reviews=reviews)
 
 @app.route("/review_by_category/<category_id>")
 def review_by_category(category_id):
