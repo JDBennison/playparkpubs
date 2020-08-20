@@ -15,13 +15,16 @@
                 <span class="chip">{{ category.category_name }}</span>
         {% endfor%}
         </div>
-        <a class="light-blue lighten-1 white-text btn-small" href="{{ url_for('edit_review', review_id=review._id) }}">
-            <i class="fas fa-edit left"></i> Edit
-        </a>
-        <a class="red lighten-1 white-text btn-small" href="{{ url_for('delete_review', review_id=review._id) }}">
-            <i class="fas fa-trash-alt left"></i> Delete
-        </a>
-        
+        {% if session.user %}
+            <a class="light-blue lighten-1 white-text btn-small" 
+            href="{{ url_for('edit_review', review_id=review._id) }}">
+                <i class="fas fa-edit left"></i> Edit
+            </a>
+            <a class="red lighten-1 white-text btn-small" 
+            href="{{ url_for('delete_review', review_id=review._id) }}">
+                <i class="fas fa-trash-alt left"></i> Delete
+            </a>
+        {% endif %}
 
     </div>
 </div>
