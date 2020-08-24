@@ -15,6 +15,7 @@ app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
 app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 app.secret_key = os.environ.get("SECRET_KEY")
 
+
 mongo = PyMongo(app)
 
 @app.route("/")
@@ -141,7 +142,8 @@ def add_review():
             "total_score": total_score,
             "review_date": request.form.get("review_date"),
             "category_list": request.form.getlist("category_list"),
-            "created_by": session["user"]
+            "created_by": session["user"],
+            "photo_url": request.form.getlist("photo_url")
         }
         mongo.db.reviews.insert_one(review)
         flash("Review Successfully Added")

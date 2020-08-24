@@ -46,7 +46,7 @@
     <div class="col s12">
         <div class="card horizontal hoverable">
             <div class="card-image">
-                <img src="{{ url_for('static', filename = 'images/glass-bar.jpg') }}">
+                <img src="{{ review.photo_url }}" alt="{{ review.pub_name }} picture">
                 <br>
                 <div class="center-align number-circle hide-on-large-only">
                     {{ review.total_score }}
@@ -94,7 +94,7 @@
                                 <i class="fas fa-edit left"></i> Edit
                         </a>
                         <a class="red lighten-1 white-text btn-small" 
-                            href="">
+                            href="{{ url_for('delete_review', review_id=review._id) }}">
                                 <i class="fas fa-trash-alt left"></i> Delete
                         </a>
                     {% endif %}

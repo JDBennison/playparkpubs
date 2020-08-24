@@ -3,7 +3,7 @@
 
 <div class="row">
     <div class="col s12 m6">
-        <img src="{{ url_for('static', filename='images/glass-bar.jpg') }}" alt="bar" class="review-img">
+        <img src="{{ review.photo_url }}" alt="{{ review.pub_name }} picture" class="review-img">
     </div>
     <div class="col s12 m6 right-align">
         <h2>{{ review.pub_name }}</h2>

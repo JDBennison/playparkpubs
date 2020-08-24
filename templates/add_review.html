@@ -8,14 +8,14 @@
   <form class="col s12" method="POST" action="{{ url_for('add_review') }}">
   <!--pub name input-->
     <div class="row">
-      <div class="input-field col s6">
+      <div class="input-field col s12 m6">
         <i class="fas fa-edit prefix light-green-text text-darken-4"></i>
         <input id="pub_name" name="pub_name" minlength="5" maxlength="50"
           type="text" class="validate" required/>
         <label for="pub_name">Pub Name</label>
       </div>
       <!--datepicker for review date-->
-      <div class="input-field col s6">
+      <div class="input-field col s12 m6">
             <i class="fas fa-calendar-alt prefix light-green-text text-darken-4"></i>
             <input id="review_date" name="review_date" type="text" class="datepicker validate"
             required/>
@@ -24,14 +24,14 @@
     </div>
     <!--address input-->
     <div class="row">
-      <div class="input-field col s6">
+      <div class="input-field col s12 m6">
         <i class="fas fa-home prefix light-green-text text-darken-4"></i>
         <input id="pub_address" name="pub_address" minlength="5" maxlength="75"
           type="text" class="validate" required/>
         <label for="pub_address">Pub Address</label>
         <!--dynamic category selector-->
       </div>
-        <div class="input-field col s6">
+        <div class="input-field col s12 m6">
         <i class="fas fa-folder-open prefix light-green-text text-darken-4"></i>
             <select id="category_list" name="category_list" class="validate" required multiple>
             <option value="" disabled>Choose Categories</option>
@@ -45,14 +45,14 @@
     </div>
     <!--phone number input-->
     <div class="row">
-      <div class="input-field col s6">
+      <div class="input-field col s12 m6">
         <i class="fas fa-phone prefix light-green-text text-darken-4"></i>
         <input id="phone_number" name="phone_number" minlength="11"
           maxlength="15" type="tel" class="validate" required/>
         <label for="phone_number">Telephone Number</label>
       </div>
     <!--website input-->
-    <div class="input-field col s6">
+    <div class="input-field col s12 m6">
         <i class="fas fa-desktop prefix light-green-text text-darken-4"></i>
         <input id="website" name="website" minlength="5" maxlength="100" type="tel" class="validate"
           required />
@@ -112,6 +112,15 @@
             </p>
         </div>
     </div>
+    <!--upload picture button-->
+    <div class="row">
+        <div class="col s4 center-align">
+            <button id="upload_widget" class="cloudinary-button">Upload files</button>
+        </div>
+        <div class="col s8 center-align">
+            <input disabled id="photo_url" name="photo_url" type="text" class="validate" required>
+        </div>
+    </div>
 
     <!--submit button-->
     <div class="row">
@@ -126,3 +135,23 @@
 
 {% endblock %}
 
+{% block scripts %}
+<script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>  
+
+<script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>  
+
+<script type="text/javascript">  
+var myWidget = cloudinary.createUploadWidget({
+  cloudName: 'play_park_pubs', apiKey: 895825151262777,
+  uploadPreset: 'mujozmny'}, (error, result) => { 
+    if (!error && result && result.event === "success") { 
+        document.getElementById("photo_url").value = result.info.secure_url;
+    }
+  }
+)
+
+document.getElementById("upload_widget").addEventListener("click", function(){
+    myWidget.open();
+  }, false);
+</script>
+{% endblock %}
