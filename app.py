@@ -1,4 +1,7 @@
 import os
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 from flask import (
     Flask, flash, render_template, 
     redirect, request, session, url_for)
@@ -15,6 +18,11 @@ app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
 app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 app.secret_key = os.environ.get("SECRET_KEY")
 
+cloudinary.config( 
+  cloud_name = os.environ.get("CLOUD_NAME"), 
+  api_key = os.environ.get("API_KEY"), 
+  api_secret = os.environ.get("API_SECRET")
+)
 
 mongo = PyMongo(app)
 
@@ -126,6 +134,8 @@ def add_review():
     if request.method == "POST":
         ratings = [int(request.form.get("service")), int(request.form.get("atmosphere")), int(request.form.get("food")), int(request.form.get("value")), int(request.form.get("park"))]
         total_score = round(((sum(ratings)) * 0.4), 1)
+        photo = request.files['photo_url']
+        photo_upload = cloudinary.uploader.upload(photo)
         review = {
             "pub_name": request.form.get("pub_name"),
             "pub_address": request.form.get("pub_address"),
@@ -143,7 +153,7 @@ def add_review():
             "review_date": request.form.get("review_date"),
             "category_list": request.form.getlist("category_list"),
             "created_by": session["user"],
-            "photo_url": request.form.getlist("photo_url")
+            "photo_url": photo_upload["secure_url"]
         }
         mongo.db.reviews.insert_one(review)
         flash("Review Successfully Added")
@@ -158,27 +168,55 @@ def edit_review(review_id):
     if request.method == "POST":
         ratings = [int(request.form.get("service")), int(request.form.get("atmosphere")), int(request.form.get("food")), int(request.form.get("value")), int(request.form.get("park"))]
         total_score = round(((sum(ratings)) * 0.4), 1)
-        submit = {
-            "pub_name": request.form.get("pub_name"),
-            "pub_address": request.form.get("pub_address"),
-            "website": request.form.get("website"),
-            "phone_number": request.form.get("phone_number"),
-            "review_headline": request.form.get("review_headline"),
-            "review_adult": request.form.get("review_adult"),
-            "review_kids": request.form.get("review_kids"),
-            "service": request.form.get("service"),
-            "atmosphere": request.form.get("atmosphere"),
-            "food": request.form.get("food"),
-            "value": request.form.get("value"),
-            "park": request.form.get("park"),
-            "total_score": total_score,
-            "review_date": request.form.get("review_date"),
-            "category_list": request.form.getlist("category_list"),
-            "created_by": session["user"]
-        }
-        mongo.db.reviews.update({"_id": ObjectId(review_id)}, submit)
-        flash("Review Successfully Updated")
-        return redirect(url_for('read_review', review_id=ObjectId(review_id)))
+        if request.form.get("file_name") != mongo.db.reviews.find_one({"_id": ObjectId(review_id)})["photo_url"]: 
+            photo = request.files['photo_url']
+            photo_upload = cloudinary.uploader.upload(photo)
+            submit = {
+                "pub_name": request.form.get("pub_name"),
+                "pub_address": request.form.get("pub_address"),
+                "website": request.form.get("website"),
+                "phone_number": request.form.get("phone_number"),
+                "review_headline": request.form.get("review_headline"),
+                "review_adult": request.form.get("review_adult"),
+                "review_kids": request.form.get("review_kids"),
+                "service": request.form.get("service"),
+                "atmosphere": request.form.get("atmosphere"),
+                "food": request.form.get("food"),
+                "value": request.form.get("value"),
+                "park": request.form.get("park"),
+                "total_score": total_score,
+                "review_date": request.form.get("review_date"),
+                "category_list": request.form.getlist("category_list"),
+                "created_by": session["user"],
+                "photo_url": photo_upload["secure_url"]
+            }
+            mongo.db.reviews.update({"_id": ObjectId(review_id)}, submit)
+            flash("Review Successfully Updated")
+            return redirect(url_for('read_review', review_id=ObjectId(review_id)))
+        else:
+            photo_url = request.form.get("file_name")
+            submit = {
+                "pub_name": request.form.get("pub_name"),
+                "pub_address": request.form.get("pub_address"),
+                "website": request.form.get("website"),
+                "phone_number": request.form.get("phone_number"),
+                "review_headline": request.form.get("review_headline"),
+                "review_adult": request.form.get("review_adult"),
+                "review_kids": request.form.get("review_kids"),
+                "service": request.form.get("service"),
+                "atmosphere": request.form.get("atmosphere"),
+                "food": request.form.get("food"),
+                "value": request.form.get("value"),
+                "park": request.form.get("park"),
+                "total_score": total_score,
+                "review_date": request.form.get("review_date"),
+                "category_list": request.form.getlist("category_list"),
+                "created_by": session["user"],
+                "photo_url": photo_url
+            }
+            mongo.db.reviews.update({"_id": ObjectId(review_id)}, submit)
+            flash("Review Successfully Updated")
+            return redirect(url_for('read_review', review_id=ObjectId(review_id)))
 
 
     review = mongo.db.reviews.find_one({"_id": ObjectId(review_id)})
@@ -234,6 +272,7 @@ def delete_category(category_id):
     mongo.db.categories.remove({"_id": ObjectId(category_id)})
     flash("Category Successfully Deleted")
     return redirect(url_for("get_categories"))
+
 
 
 if __name__ == "__main__":

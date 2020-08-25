@@ -233,3 +233,29 @@ input[type=range]::-webkit-slider-thumb {
 .input-field [type=text] {
     color: #7cb342;
 }
+
+
+#dropbox { 
+  border: 4px dashed #ccc; 
+  padding-left: 8px;
+}
+.my-form {
+  margin-top: 10px;
+}
+.gallery {
+  margin: 10px;
+}
+.gallery img {
+  margin-left: 16px;
+}
+.progress-bar{
+  width: 200px;
+  position: relative;
+  height: 8px;
+  margin-top: 4px;
+}
+.progress-bar .progress{
+  height: 8px;
+  background-color: #ff0000;
+  width: 0;
+}
