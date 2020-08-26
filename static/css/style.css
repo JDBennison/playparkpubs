@@ -15,33 +15,34 @@ h3 {
     line-height: 2;
 }
 
-  /* label color */
-   .input-field label {
-     color: #33691e;
-   }
-   /* label focus color */
-   .input-field input[type=text]:focus + label {
-     color: #33691e;
-   }
-   /* label underline focus color */
-   .input-field input[type=text]:focus {
-     border-bottom: 1px solid #33691e;
-     box-shadow: 0 1px 0 0 #33691e;
-   }
-   /* valid color */
-   .input-field input[type=text].valid {
-     border-bottom: 1px solid #33691e;
-     box-shadow: 0 1px 0 0 #33691e;
-   }
-   /* invalid color */
-   .input-field input[type=text].invalid {
-     border-bottom: 1px solid #33691e;
-     box-shadow: 0 1px 0 0 #33691e;
-   }
-   /* icon prefix focus color */
-   .input-field .prefix.active {
-     color: #33691e;
-   }
+label.active {
+  color: #8bc34a !important;
+}
+input[type=text]:focus,
+input[type=url]:focus,
+input[type=tel]:focus,
+input[type=password]:focus {
+  border-bottom: 1px solid #8bc34a !important;
+  box-shadow: 0 1px 0 0 #8bc34a !important;
+}
+
+.dropdown-content li>a, .dropdown-content li>span {
+    color: #33691e;
+}
+
+textarea:focus {
+    border-bottom: 1px solid #8bc34a !important;
+    box-shadow: 0 1px 0 0 #8bc34a !important;
+}
+
+[type="checkbox"]:checked+span:not(.lever):before {
+    border-right: 2px solid #33691e;
+    border-bottom: 2px solid #33691e;
+}
+
+.btn-small {
+    margin-top: 4px;
+}
 
 nav .brand-logo img {
     width: 8rem;
@@ -181,8 +182,13 @@ nav .brand-logo img {
     color: black;
 }
 
-
-
+.datepicker-table td.is-today {
+    color: #8bc34a;
+}
+button:focus {
+    outline: none;
+    background-color:#8bc34a;
+}
 .datepicker-date-display {
     background-color: #33691e;
 }
@@ -207,11 +213,6 @@ button:focus {
     background-color: #33691e;
 }
 
-input:not([type]):focus:not([readonly]), input[type=text]:not(.browser-default):focus:not([readonly]), input[type=password]:not(.browser-default):focus:not([readonly]), input[type=email]:not(.browser-default):focus:not([readonly]), input[type=url]:not(.browser-default):focus:not([readonly]), input[type=time]:not(.browser-default):focus:not([readonly]), input[type=date]:not(.browser-default):focus:not([readonly]), input[type=datetime]:not(.browser-default):focus:not([readonly]), input[type=datetime-local]:not(.browser-default):focus:not([readonly]), input[type=tel]:not(.browser-default):focus:not([readonly]), input[type=number]:not(.browser-default):focus:not([readonly]), input[type=search]:not(.browser-default):focus:not([readonly]), textarea.materialize-textarea:focus:not([readonly]) {
-    border-bottom: 1px solid #7cb342;
-    -webkit-box-shadow: 0 1px 0 0 #7cb342;
-    box-shadow: 0 1px 0 0 #7cb342;
-}
 
 input[type=range]::-webkit-slider-thumb {
     background-color: #33691e;
@@ -231,7 +232,7 @@ input[type=range]::-webkit-slider-thumb {
   }
 
 .input-field [type=text] {
-    color: #7cb342;
+    color: #33691e;
 }
 
 

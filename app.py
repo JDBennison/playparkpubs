@@ -40,6 +40,23 @@ def search():
     reviews = mongo.db.reviews.find({"$text": {"$search": query}})
     return render_template("index.html", most_recent=most_recent, reviews=reviews)
 
+@app.route("/sort", methods=["GET", "POST"])
+def sort():
+    sort_by = request.form.get("sort_by")
+    most_recent = mongo.db.reviews.find().limit(10).sort("_id", -1)
+    if sort_by == "az":
+        reviews = mongo.db.reviews.find().sort("pub_name", 1)
+    elif sort_by == "za":
+        reviews = mongo.db.reviews.find().sort("pub_name", -1)
+    elif sort_by == "dateasc":
+        reviews = mongo.db.reviews.find().sort("_id", 1)
+    elif sort_by == "datedesc":
+        reviews = mongo.db.reviews.find().sort("_id", -1)
+    elif sort_by == "highestrated":
+        reviews = mongo.db.reviews.find().sort("total_score", -1)
+    else:
+        reviews = mongo.db.reviews.find().sort("_id", -1)
+    return render_template("index.html", most_recent=most_recent, reviews=reviews)
 
 @app.route("/register", methods=["GET", "POST"])
 def register():

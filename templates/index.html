@@ -37,10 +37,23 @@
                         </ul>
                     </div>
                 </div>
+                
             </div>
         </div>
     </section>
     <section class="reviews row">
+        <div class="input-field col s6 offset-s6">
+            <form action="{{ url_for('sort') }}" method="POST" >
+                <select id="sort_by" name="sort_by" onchange="this.form.submit()" class="black-text">
+                    <option value="" disabled selected>Sort By</option>
+                    <option value="az">Alphabetically Ascending</option>
+                    <option value="za">Alphabetically Descending</option>
+                    <option value="dateasc">Review Date Ascending</option>
+                    <option value="datedesc">Review Date Descending</option>
+                    <option value="highestrated">Highest Rated</option>
+                </select>
+            </form>
+        </div>
 {% if reviews.count() > 0 %}
 {% for review in reviews %}
     <div class="col s12">

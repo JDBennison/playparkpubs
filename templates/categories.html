@@ -2,7 +2,7 @@
 {% block content %}
 
     <h3 class="light-green-text text-darken-4 center-align">Categories</h3>
-
+{% if session.user %}
     <div class="row">
         <div class="col s12 center-align">
             <a href="{{ url_for('add_category') }}" class="btn-large light-green darken-2 text-shadow">
@@ -10,7 +10,7 @@
             </a>
         </div>
     </div>
-
+{% endif %}
     <div class="row">
         {% for category in categories %}
             <div class="col s12 m6">

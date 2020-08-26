@@ -7,7 +7,7 @@
     <div class="col s12">
         <div class="card horizontal hoverable">
             <div class="card-image">
-                <img src="{{ url_for('static', filename = 'images/glass-bar.jpg') }}">
+                <img src="{{ review.photo_url }}" alt="{{ review.pub_name }} picture" class="review-img">
                 <br>
                 <div class="center-align number-circle hide-on-large-only">
                     {{ review.total_score }}
