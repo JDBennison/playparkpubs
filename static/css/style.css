@@ -7,12 +7,20 @@ h3 {
     margin: 4rem 0 1rem 0;
 }
 
+h4 {
+    margin: 0 0 1rem 0;
+}
+
 .flashes {
     padding-top: 20px;
 }
 
 .flashes h4 {
     line-height: 2;
+}
+
+.pagination li.active {
+    background-color: #33691e;
 }
 
 label.active {
