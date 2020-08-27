@@ -55,6 +55,7 @@
             </form>
         </div>
 {% if reviews.count() > 0 %}
+{{ pagination.links }}
 {% for review in reviews %}
     <div class="col s12">
         <div class="card horizontal hoverable">
@@ -121,6 +122,7 @@
     </div>
     
     {% endfor %}
+    {{ pagination.links }}
     {% else %}
         <h5 class="red-text text-darken-4 center-align">No Results Found</h5>
     {% endif %}   

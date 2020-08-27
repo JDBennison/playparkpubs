@@ -8,6 +8,7 @@ from flask import (
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask_paginate import Pagination, get_page_args
 if os.path.exists("env.py"):
     import env
 
@@ -30,33 +31,66 @@ mongo = PyMongo(app)
 @app.route("/index")
 def index():
     most_recent = mongo.db.reviews.find().limit(10).sort("_id", -1)
-    reviews = mongo.db.reviews.find().sort("_id", -1)
-    return render_template("index.html", most_recent=most_recent, reviews=reviews)
+    page, per_page, offset = get_page_args(page_parameter='page', per_page_parameter='per_page')
+    total = mongo.db.reviews.find().count()
+    thereviews = mongo.db.reviews.find().sort("_id", -1)
+    paginatedReviews = thereviews[offset: offset + per_page]
+    pagination = Pagination(page=page, per_page=per_page, total=total,
+                            css_framework='materialize')
+    return render_template('index.html',
+                           reviews=paginatedReviews,
+                           page=page,
+                           per_page=per_page,
+                           pagination=pagination,
+                           most_recent=most_recent
+                           )
 
 @app.route("/search", methods=["GET", "POST"])
 def search():
     query = request.form.get("query")
     most_recent = mongo.db.reviews.find().limit(10).sort("_id", -1)
-    reviews = mongo.db.reviews.find({"$text": {"$search": query}})
-    return render_template("index.html", most_recent=most_recent, reviews=reviews)
+    page, per_page, offset = get_page_args(page_parameter='page', per_page_parameter='per_page')
+    total = mongo.db.reviews.find({"$text": {"$search": query}}).count()
+    thereviews = mongo.db.reviews.find({"$text": {"$search": query}})
+    paginatedReviews = thereviews[offset: offset + per_page]
+    pagination = Pagination(page=page, per_page=per_page, total=total,
+                            css_framework='materialize')
+    return render_template('index.html',
+                           reviews=paginatedReviews,
+                           page=page,
+                           per_page=per_page,
+                           pagination=pagination,
+                           most_recent=most_recent
+                           )
 
 @app.route("/sort", methods=["GET", "POST"])
 def sort():
     sort_by = request.form.get("sort_by")
     most_recent = mongo.db.reviews.find().limit(10).sort("_id", -1)
+    page, per_page, offset = get_page_args(page_parameter='page', per_page_parameter='per_page')
+    total = mongo.db.reviews.find().count()
     if sort_by == "az":
-        reviews = mongo.db.reviews.find().sort("pub_name", 1)
+        thereviews = mongo.db.reviews.find().sort("pub_name", 1)
     elif sort_by == "za":
-        reviews = mongo.db.reviews.find().sort("pub_name", -1)
+        thereviews = mongo.db.reviews.find().sort("pub_name", -1)
     elif sort_by == "dateasc":
-        reviews = mongo.db.reviews.find().sort("_id", 1)
+        thereviews = mongo.db.reviews.find().sort("_id", 1)
     elif sort_by == "datedesc":
-        reviews = mongo.db.reviews.find().sort("_id", -1)
+        thereviews = mongo.db.reviews.find().sort("_id", -1)
     elif sort_by == "highestrated":
-        reviews = mongo.db.reviews.find().sort("total_score", -1)
+        thereviews = mongo.db.reviews.find().sort("total_score", -1)
     else:
-        reviews = mongo.db.reviews.find().sort("_id", -1)
-    return render_template("index.html", most_recent=most_recent, reviews=reviews)
+        thereviews = mongo.db.reviews.find().sort("_id", -1)
+    paginatedReviews = thereviews[offset: offset + per_page]
+    pagination = Pagination(page=page, per_page=per_page, total=total,
+                            css_framework='materialize')
+    return render_template('index.html',
+                           reviews=paginatedReviews,
+                           page=page,
+                           per_page=per_page,
+                           pagination=pagination,
+                           most_recent=most_recent
+                           )
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
