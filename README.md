@@ -9,36 +9,47 @@ Here are a list of user stories to describe the kind of people who might use the
 * As a reviewer of this website I want a simple interface to upload and edit my reviews
 
 ### Links To Wireframes
-[GitHub](http://github.com)
-[Home](static/wireframes/Home.png)
-[Review](static/wireframes/Review.png)
-[New Review](static/wireframes/NewReview.png)
-[Edit Review](static/wireframes/EditReview.png)
-[Contact Form](static/wireframes/Contact.png)
+
+* [Home](static/wireframes/Home.png)
+* [Review](static/wireframes/Review.png)
+* [New Review](static/wireframes/NewReview.png)
+* [Edit Review](static/wireframes/EditReview.png)
+* [Contact Form](static/wireframes/Contact.png)
+
 ## Features
 Here are a list of the features that I have included in this project and features that are yet to be implemented
+
 ### Existing Features
 * Recently Reviewed
+
 At the top of the home page it shows the last ten reviews by time they were submitted (not by the date they were visited). This is done using the mongo db sort function
 * Search
+
 At the top of the home page there is a search bar which searches using the pub name, address and adult review fields. This is using the indexing function of mongo db.
 * Sort By
+
 At the top of the list of reviews the user is given the option of sorting the reviews either alphabetically (ascending and descending), by date reviewed (earliest to latest) and by the overall score of the review.
 * Pagination
+
 The list of reviews will show the top ten (depending on how its been sorted) before it breaks up into pagination.
 * Category View
+
 As well as being able to add new categories, the author of the posts can add assign the categories when creating a review. Using the category view you can select the category you like and you will see all of the reviews with that category attached.
 * Add Review
+
 Simple interface with required elements throughout. Upload photos using Cloudinary which then puts the secure url into the database to call back on it for the reviews. Also has a multiple dropdown for categories. If you add extra categories they will appear on the dropdown.
 * Profile
+
 Currently shows all the reviews that a user has written.
 * Contact Us
+
 Modal box on every page which brings up from you can use to contact us. Uses EmailJS
 * Log In/Register
+
 All of the Add/Edit/Delete functionality is only visible to users who have logged in and registered. Currently very basic functionality on this.
 
-Features Left to Implement
-*Log in/Register
+### Features Left to Implement
+* Log in/Register
 I will be adding in more secure features for the login and making the register hidden so that not everyone can register, only the people invited by us. Also want to hook up emails to verify accounts and the like.
 * Profile
 Would like more user details and the ability to change password. If users want to see who is reviewing they can click on their names and see who they are and what kind of things they like to make them more human.
