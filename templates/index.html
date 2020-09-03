@@ -7,7 +7,7 @@
             <div class="col s12 l6 ">
                 <h5>Finding the best pubs for the whole family.</h5>
                 <p>For families looking to find a pub with something for everyone. Great food and drinks for the grown ups and great play parks for the kids.</p>
-                <p>Enter your postcode to find Play Park Pubs near you!</p>
+                <p>Search below to find the best Play Park Pub for you!</p>
                 <form action="{{ url_for('search') }}" method="POST" class="col s12">
                     <div class="row valign-wrapper center-align">
                         <div class="input-field col s12">
@@ -26,15 +26,19 @@
                     </div>
                 </form>
             </div>
-            <!--Most recent reviews-->
-            <div class="col s12 l6 recently-reviewed">
+            <!--Most recent reviews only visable on desktop-->
+            <div class="col l6 hide-on-med-and-down recently-reviewed">
                 <div class="card">
                     <div class="card-content">
                         <h4>Recently Reviewed</h4>
                         <ul>
-                        {% for review in most_recent %}
-                            <li><a href="{{ url_for('read_review', review_id=review._id) }}"><i class="fas fa-beer"></i> {{ review.pub_name }} - {{ review.review_date }}</a></li>
-                        {% endfor %}
+                            {% for review in most_recent %}
+                                <li>
+                                    <a href="{{ url_for('read_review', review_id=review._id) }}">
+                                        <i class="fas fa-beer"></i> {{ review.pub_name }} - {{ review.review_date }}
+                                    </a>
+                                </li>
+                            {% endfor %}
                         </ul>
                     </div>
                 </div>
@@ -91,11 +95,11 @@
                             <br>
                             <!--Edit and delete only visable to logged in users-->
                                 {% if session.user %}
-                                    <a class="light-blue lighten-1 white-text btn-small" 
+                                    <a class="light-blue lighten-1 white-text btn-small right" 
                                         href="{{ url_for('edit_review', review_id=review._id) }}">
                                             <i class="fas fa-edit left"></i> Edit
                                     </a>
-                                    <a class="red lighten-1 white-text btn-small" 
+                                    <a class="red lighten-1 white-text btn-small right" 
                                         href="{{ url_for('delete_review', review_id=review._id) }}">
                                             <i class="fas fa-trash-alt left"></i> Delete
                                     </a>
@@ -108,11 +112,11 @@
                         </div>
                         <div class="card-action hide-on-med-and-down">
                             {% if session.user %}
-                                <a class="light-blue lighten-1 white-text btn-small" 
+                                <a class="light-blue lighten-1 white-text btn-small right" 
                                     href="{{ url_for('edit_review', review_id=review._id) }}">
                                         <i class="fas fa-edit left"></i> Edit
                                 </a>
-                                <a class="red lighten-1 white-text btn-small" 
+                                <a class="red lighten-1 white-text btn-small right" 
                                     href="{{ url_for('delete_review', review_id=review._id) }}">
                                         <i class="fas fa-trash-alt left"></i> Delete
                                 </a>
