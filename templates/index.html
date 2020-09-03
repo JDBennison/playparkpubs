@@ -2,7 +2,7 @@
 {% block content %}
 
     <section>
-    <!--Call to action-->
+    <!--Search bar-->
         <div class="row call-to-action">
             <div class="col s12 l6 ">
                 <h5>Finding the best pubs for the whole family.</h5>
@@ -26,21 +26,22 @@
                     </div>
                 </form>
             </div>
+            <!--Most recent reviews-->
             <div class="col s12 l6 recently-reviewed">
                 <div class="card">
                     <div class="card-content">
                         <h4>Recently Reviewed</h4>
                         <ul>
                         {% for review in most_recent %}
-                        <li><a href="{{ url_for('read_review', review_id=review._id) }}"><i class="fas fa-beer"></i> {{ review.pub_name }} - {{ review.review_date }}</a></li>
+                            <li><a href="{{ url_for('read_review', review_id=review._id) }}"><i class="fas fa-beer"></i> {{ review.pub_name }} - {{ review.review_date }}</a></li>
                         {% endfor %}
                         </ul>
                     </div>
                 </div>
-                
             </div>
         </div>
     </section>
+    <!--Sort by select-->
     <section class="reviews row">
         <div class="input-field col s6 offset-s6">
             <form action="{{ url_for('sort') }}" method="POST" >
@@ -54,83 +55,85 @@
                 </select>
             </form>
         </div>
-{% if reviews.count() > 0 %}
-<div class="col s12 center-align">
-    {{ pagination.links }}
-</div>
-{% for review in reviews %}
-    <div class="col s12">
-        <div class="card horizontal hoverable">
-            <div class="card-image">
-                <img src="{{ review.photo_url }}" alt="{{ review.pub_name }} picture">
-                <br>
-                <div class="center-align number-circle hide-on-large-only">
-                    {{ review.total_score }}
-                </div>
-            </div>
-        
-            <div class="card-stacked">
-                <div class="card-content light-green-text text-darken-4">
-                    <span class="card-title">{{ review.pub_name }}</span>
-                    <p class="pub-address">{{ review.pub_address }}</p>
-                    <strong>{{ review.review_headline }}</strong>
-                    <div class="row hide-on-med-and-down">
-                        <div class="col s10 ">
-                        <p class="review-truncate">{{ review.review_adult | truncate(150) }}</p>
+    {% if reviews.count() > 0 %}
+        <div class="col s12 center-align">
+            {{ pagination.links }}
+        </div>
+        <!--Review cards-->
+        {% for review in reviews %}
+            <div class="col s12">
+                <div class="card horizontal hoverable">
+                    <div class="card-image">
+                        <img src="{{ review.photo_url }}" alt="{{ review.pub_name }} picture">
+                        <br>
+                        <div class="center-align number-circle hide-on-large-only">
+                            {{ review.total_score }}
                         </div>
-                        <div class="col s2">
-                            <div class="right number-circle">
-                                {{ review.total_score }}
-                                <br>
+                    </div>
+                
+                    <div class="card-stacked">
+                        <div class="card-content light-green-text text-darken-4">
+                            <span class="card-title">{{ review.pub_name }}</span>
+                            <p class="pub-address">{{ review.pub_address }}</p>
+                            <strong>{{ review.review_headline }}</strong>
+                            <div class="row hide-on-med-and-down">
+                                <div class="col s10 ">
+                                <p class="review-truncate">{{ review.review_adult | truncate(150) }}</p>
+                                </div>
+                                <div class="col s2">
+                                    <div class="right number-circle">
+                                        {{ review.total_score }}
+                                        <br>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hide-on-large-only">
+                            <br>
+                            <!--Edit and delete only visable to logged in users-->
+                                {% if session.user %}
+                                    <a class="light-blue lighten-1 white-text btn-small" 
+                                        href="{{ url_for('edit_review', review_id=review._id) }}">
+                                            <i class="fas fa-edit left"></i> Edit
+                                    </a>
+                                    <a class="red lighten-1 white-text btn-small" 
+                                        href="{{ url_for('delete_review', review_id=review._id) }}">
+                                            <i class="fas fa-trash-alt left"></i> Delete
+                                    </a>
+                                {% endif %}
+                                <a class="light-green lighten-1 white-text btn-small right" 
+                                    href="{{ url_for('read_review', review_id=review._id) }}">
+                                        <i class="fas fa-align-left left"></i> Review
+                                </a>
                             </div>
                         </div>
-                    </div>
-                    <div class="hide-on-large-only">
-                    <br>
-                        {% if session.user %}
-                            <a class="light-blue lighten-1 white-text btn-small" 
-                                href="{{ url_for('edit_review', review_id=review._id) }}">
-                                    <i class="fas fa-edit left"></i> Edit
+                        <div class="card-action hide-on-med-and-down">
+                            {% if session.user %}
+                                <a class="light-blue lighten-1 white-text btn-small" 
+                                    href="{{ url_for('edit_review', review_id=review._id) }}">
+                                        <i class="fas fa-edit left"></i> Edit
+                                </a>
+                                <a class="red lighten-1 white-text btn-small" 
+                                    href="{{ url_for('delete_review', review_id=review._id) }}">
+                                        <i class="fas fa-trash-alt left"></i> Delete
+                                </a>
+                            {% endif %}
+                            <a class="light-green lighten-1 white-text btn-small right" 
+                                href="{{ url_for('read_review', review_id=review._id) }}">
+                                    <i class="fas fa-align-left left"></i> Review
                             </a>
-                            <a class="red lighten-1 white-text btn-small" 
-                                href="{{ url_for('delete_review', review_id=review._id) }}">
-                                    <i class="fas fa-trash-alt left"></i> Delete
-                            </a>
-                        {% endif %}
-                        <a class="light-green lighten-1 white-text btn-small right" 
-                            href="{{ url_for('read_review', review_id=review._id) }}">
-                                <i class="fas fa-align-left left"></i> Review
-                        </a>
+                        </div>
                     </div>
-                </div>
-                <div class="card-action hide-on-med-and-down">
-                    {% if session.user %}
-                        <a class="light-blue lighten-1 white-text btn-small" 
-                            href="{{ url_for('edit_review', review_id=review._id) }}">
-                                <i class="fas fa-edit left"></i> Edit
-                        </a>
-                        <a class="red lighten-1 white-text btn-small" 
-                            href="{{ url_for('delete_review', review_id=review._id) }}">
-                                <i class="fas fa-trash-alt left"></i> Delete
-                        </a>
-                    {% endif %}
-                    <a class="light-green lighten-1 white-text btn-small right" 
-                        href="{{ url_for('read_review', review_id=review._id) }}">
-                            <i class="fas fa-align-left left"></i> Review
-                    </a>
                 </div>
             </div>
-        </div>
-    </div>
-    
-    {% endfor %}
-    <div class="col s12 center-align">
-        {{ pagination.links }}
-    </div>  
+            
+        {% endfor %}
+        <div class="col s12 center-align">
+            {{ pagination.links }}
+        </div>  
     {% else %}
         <h5 class="red-text text-darken-4 center-align">No Results Found</h5>
     {% endif %}   
-    </section>
+</section>
     
 
 

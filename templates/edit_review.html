@@ -5,146 +5,145 @@
 <h3 class="light-green-text text-darken-4 center-align">Edit Review</h3>
 
 <div class="row card-panel grey lighten-5">
-  <form class="col s12" method="POST" action="{{ url_for('edit_review', review_id=review._id) }}" 
-  enctype="multipart/form-data">
-  <!--pub name input-->
-    <div class="row">
-      <div class="input-field col s12 m6">
-        <i class="fas fa-edit prefix light-green-text text-darken-4"></i>
-        <input id="pub_name" name="pub_name" minlength="5" maxlength="50"
-          value="{{ review.pub_name }}" type="text" class="validate" required/>
-        <label for="pub_name">Pub Name</label>
-      </div>
-      <!--datepicker for review date-->
-      <div class="input-field col s12 m6">
-            <i class="fas fa-calendar-alt prefix light-green-text text-darken-4"></i>
-            <input id="review_date" name="review_date" type="text" class="datepicker validate"
-            value="{{ review.review_date }}" required/>
-            <label for="review_date">Date Visited</label>
-      </div>
-    </div>
-    <!--address input-->
-    <div class="row">
-      <div class="input-field col s12 m6">
-        <i class="fas fa-home prefix light-green-text text-darken-4"></i>
-        <input id="pub_address" name="pub_address" minlength="5" maxlength="75"
-          value="{{ review.pub_address }}" type="text" class="validate" required/>
-        <label for="pub_address">Pub Address</label>
-        <!--dynamic category selector-->
-      </div>
-        <div class="input-field col s12 m6">
-        <i class="fas fa-folder-open prefix light-green-text text-darken-4"></i>
-            <select id="category_list" name="category_list" class="validate" required multiple>
-            <option value="" disabled>Choose Categories</option>
-            {% for category in categories %}
-                {% if category in prefilled_categories %}
-                    <option value="{{ category._id }}" selected>{{ category.category_name }}</option>
-                {% else %}
-                    <option value="{{ category._id }}">{{ category.category_name }}</option>
-                {% endif %}
-            {% endfor %}
-            </select>
-            <label for="category_list">Select Categories</label>
+    <form class="col s12" method="POST" action="{{ url_for('edit_review', review_id=review._id) }}" 
+    enctype="multipart/form-data">
+    <!--pub name input-->
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <i class="fas fa-edit prefix light-green-text text-darken-4"></i>
+                <input id="pub_name" name="pub_name" minlength="5" maxlength="50"
+                value="{{ review.pub_name }}" type="text" class="validate" required/>
+                <label for="pub_name">Pub Name</label>
+            </div>
+        <!--datepicker for review date-->
+            <div class="input-field col s12 m6">
+                <i class="fas fa-calendar-alt prefix light-green-text text-darken-4"></i>
+                <input id="review_date" name="review_date" type="text" class="datepicker validate"
+                value="{{ review.review_date }}" required/>
+                <label for="review_date">Date Visited</label>
+            </div>
         </div>
-       
-    </div>
-    <!--phone number input-->
-    <div class="row">
-      <div class="input-field col s12 m6">
-        <i class="fas fa-phone prefix light-green-text text-darken-4"></i>
-        <input id="phone_number" name="phone_number" minlength="11"
-          value="{{ review.phone_number }}" maxlength="15" type="tel" class="validate" required/>
-        <label for="phone_number">Telephone Number</label>
-      </div>
-    <!--website input-->
-    <div class="input-field col s12 m6">
-        <i class="fas fa-desktop prefix light-green-text text-darken-4"></i>
-        <input id="website" name="website" minlength="5" maxlength="100" type="url" class="validate"
-          value="{{ review.website }}" required />
-        <label for="website">Website</label>
-      </div>
-      </div>
-    <!--textarea for headline-->  
-    <div class="row">
-      <div class="input-field col s12">
-            <i class="fas fa-newspaper prefix light-green-text text-darken-4"></i>
-            <textarea id="review_headline" name="review_headline" class="materialize-textarea validate"
-             minlength="5" maxlength="100" data-length="100" required>
-            {{- review.review_headline -}}
-            </textarea>
-          <label for="review_headline">Headline</label>
+        <!--address input-->
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <i class="fas fa-home prefix light-green-text text-darken-4"></i>
+                <input id="pub_address" name="pub_address" minlength="5" maxlength="75"
+                value="{{ review.pub_address }}" type="text" class="validate" required/>
+                <label for="pub_address">Pub Address</label>
+                <!--dynamic category selector-->
+            </div>
+            <div class="input-field col s12 m6">
+                <i class="fas fa-folder-open prefix light-green-text text-darken-4"></i>
+                <select id="category_list" name="category_list" class="validate" required multiple>
+                <option value="" disabled>Choose Categories</option>
+                {% for category in categories %}
+                    {% if category in prefilled_categories %}
+                        <option value="{{ category._id }}" selected>{{ category.category_name }}</option>
+                    {% else %}
+                        <option value="{{ category._id }}">{{ category.category_name }}</option>
+                    {% endif %}
+                {% endfor %}
+                </select>
+                <label for="category_list">Select Categories</label>
+            </div>
         </div>
-    </div>
-    <!--text area for adult review-->
-    <div class="row">
-      <div class="input-field col s12">
-          <i class="fas fa-align-left prefix light-green-text text-darken-4"></i>
-          <textarea id="review_adult" name="review_adult" minlength="5" class="materialize-textarea validate" required>
-            {{- review.review_adult -}}
-          </textarea>
-          <label for="review_adult">Adults' Review</label>
+        <!--phone number input-->
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <i class="fas fa-phone prefix light-green-text text-darken-4"></i>
+                <input id="phone_number" name="phone_number" minlength="11"
+                value="{{ review.phone_number }}" maxlength="15" type="tel" class="validate" required/>
+                <label for="phone_number">Telephone Number</label>
+            </div>
+            <!--website input-->
+            <div class="input-field col s12 m6">
+                <i class="fas fa-desktop prefix light-green-text text-darken-4"></i>
+                <input id="website" name="website" minlength="5" maxlength="100" type="url" class="validate"
+                value="{{ review.website }}" required />
+                <label for="website">Website</label>
+            </div>
         </div>
-    </div>
-    <!--text area for kids review-->
-    <div class="row">
-      <div class="input-field col s12">
-          <i class="fas fa-child prefix light-green-text text-darken-4"></i>
-          <textarea id="review_kids" name="review_kids" minlength="5"  class="materialize-textarea validate" required>
-            {{- review.review_kids -}}
-          </textarea>
-          <label for="review_kids">Kids' Review</label>
+        <!--textarea for headline-->  
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="fas fa-newspaper prefix light-green-text text-darken-4"></i>
+                <textarea id="review_headline" name="review_headline" class="materialize-textarea validate"
+                minlength="5" maxlength="100" data-length="100" required>
+                {{- review.review_headline -}}
+                </textarea>
+                <label for="review_headline">Headline</label>
+            </div>
         </div>
-    </div>
-    <!--ratings input-->
-    <div class="row">
-        <div class="input-field col s1">
-        <i class="fas fa-star prefix light-green-text text-darken-4"></i>
+        <!--text area for adult review-->
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="fas fa-align-left prefix light-green-text text-darken-4"></i>
+                <textarea id="review_adult" name="review_adult" minlength="5" class="materialize-textarea validate" required>
+                    {{- review.review_adult -}}
+                </textarea>
+                <label for="review_adult">Adults' Review</label>
+            </div>
         </div>
-        <div class="input-field col s11 m4 offset-m3">
-            <p class="range-field">
-                <label for="service">Service</label>
-                <input type="range" id="service" name="service" min="0" max="5" value="{{ review.service }}"/>
-            </p>
-            <p class="range-field">
-                <label for="atmosphere">Atmosphere</label>
-                <input type="range" id="atmosphere" name="atmosphere" min="0" max="5" value="{{ review.atmosphere }}"/>
-            </p>
-            <p class="range-field">
-                <label for="food">Food</label>
-                <input type="range" id="food" name="food" min="0" max="5" value="{{ review.food }}"/>
-            </p>
-            <p class="range-field">
-                <label for="value">Value</label>
-                <input type="range" id="value" name="value" min="0" max="5" value="{{ review.value }}"/>
-            </p>
-            <p class="range-field">
-                <label for="park">Park</label>
-                <input type="range" id="park" name="park" min="0" max="5" value="{{ review.park }}"/>
-            </p>
+        <!--text area for kids review-->
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="fas fa-child prefix light-green-text text-darken-4"></i>
+                <textarea id="review_kids" name="review_kids" minlength="5"  class="materialize-textarea validate" required>
+                    {{- review.review_kids -}}
+                </textarea>
+                <label for="review_kids">Kids' Review</label>
+            </div>
         </div>
-    </div>
-    <!--upload image-->
-    <div class="file-field input-field">
-        <div class="btn light-green darken-1 text-shadow">
-            <span>Upload Photo</span>
-            <input type="file" accept="image/*" name="photo_url" id="photo_url">
+        <!--ratings input-->
+        <div class="row">
+            <div class="input-field col s1">
+                <i class="fas fa-star prefix light-green-text text-darken-4"></i>
+            </div>
+            <div class="input-field col s11 m4 offset-m3">
+                <p class="range-field">
+                    <label for="service">Service</label>
+                    <input type="range" id="service" name="service" min="0" max="5" value="{{ review.service }}"/>
+                </p>
+                <p class="range-field">
+                    <label for="atmosphere">Atmosphere</label>
+                    <input type="range" id="atmosphere" name="atmosphere" min="0" max="5" value="{{ review.atmosphere }}"/>
+                </p>
+                <p class="range-field">
+                    <label for="food">Food</label>
+                    <input type="range" id="food" name="food" min="0" max="5" value="{{ review.food }}"/>
+                </p>
+                <p class="range-field">
+                    <label for="value">Value</label>
+                    <input type="range" id="value" name="value" min="0" max="5" value="{{ review.value }}"/>
+                </p>
+                <p class="range-field">
+                    <label for="park">Park</label>
+                    <input type="range" id="park" name="park" min="0" max="5" value="{{ review.park }}"/>
+                </p>
+            </div>
         </div>
-        <div class="file-path-wrapper">
-            <input class="file-path validate" type="text" name="file_name" id="file_name" value="{{ review.photo_url }}" required>
+        <!--upload image-->
+        <div class="file-field input-field">
+            <div class="btn light-green darken-1 text-shadow">
+                <span>Upload Photo</span>
+                <input type="file" accept="image/*" name="photo_url" id="photo_url">
+            </div>
+            <div class="file-path-wrapper">
+                <input class="file-path validate" type="text" name="file_name" id="file_name" value="{{ review.photo_url }}" required>
+            </div>
         </div>
-    </div>
-    <!--submit button-->
-    <div class="row">
-        <div class="col s12 center-align">
-            <a href="{{ url_for('index') }}" class="btn-large red lighten-1 text-shadow">
-                Cancel <i class="fas fa-times-circle right"></i>
-            </a>
-            <button type="submit" class="btn-large light-green darken-1 text-shadow">
-                Edit Review <i class="fas fa-edit right"></i>
-            </button>
+        <!--submit button-->
+        <div class="row">
+            <div class="col s12 center-align">
+                <a href="{{ url_for('index') }}" class="btn-large red lighten-1 text-shadow">
+                    Cancel <i class="fas fa-times-circle right"></i>
+                </a>
+                <button type="submit" class="btn-large light-green darken-1 text-shadow">
+                    Edit Review <i class="fas fa-edit right"></i>
+                </button>
+            </div>
         </div>
-    </div>
-  </form>
+    </form>
 </div>
 
 {% endblock %}

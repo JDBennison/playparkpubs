@@ -1,116 +1,120 @@
 {% extends "base.html" %}
 {% block content %}
 
-<div class="row">
-    <div class="col s12 m6">
-        <img src="{{ review.photo_url }}" alt="{{ review.pub_name }} picture" class="review-img">
-    </div>
-    <div class="col s12 m6 right-align">
-        <h2>{{ review.pub_name }}</h2>
-        <p class="pub-address">{{ review.pub_address }}</p>
-        <a href="{{ review.website }}" target="_blank">Website <i class="fas fa-desktop"></i></a>
-        <p>{{ review.phone_number }} <i class="fas fa-phone"></i></a></p>
-        <div>
-        {% for category in categories %}
-                <span class="chip">{{ category.category_name }}</span>
-        {% endfor%}
+    <div class="row">
+    <!--Review details-->
+        <div class="col s12 m6">
+            <img src="{{ review.photo_url }}" alt="{{ review.pub_name }} picture" class="review-img">
         </div>
-        {% if session.user %}
-            <a class="light-blue lighten-1 white-text btn-small" 
-            href="{{ url_for('edit_review', review_id=review._id) }}">
-                <i class="fas fa-edit left"></i> Edit
-            </a>
-            <a class="red lighten-1 white-text btn-small" 
-            href="{{ url_for('delete_review', review_id=review._id) }}">
-                <i class="fas fa-trash-alt left"></i> Delete
-            </a>
-        {% endif %}
-
-    </div>
-</div>
-<div class="row">
-    <div class="col s12">
-        <h5>{{ review.review_headline }}</h5>
-        <p>Reviewed on {{ review.review_date }} by {{ review.created_by | capitalize }}</p>
-        <h6>Grown Up Review</h6>
-        <p>{{ review.review_adult }}</p>
-        <h6>Kids Review</h6>
-        <p>{{ review.review_kids }}</p>       
-    </div>
-</div>
-<div class="row">
-    <div class="col s12 m4 offset-m2">
-        <table class="centered striped">
-        <tbody>
-            <tr class="service">
-            <td>Service</td>
-            <td>
-                <div class="stars-outer">
-                <div class="stars-inner"></div>
-                </div>
-            </td>
-            </tr>
-            <tr class="atmosphere">
-            <td>Atmosphere</td>
-            <td>
-                <div class="stars-outer">
-                <div class="stars-inner"></div>
-                </div>
-            </td>
-            </tr>
-            <tr class="food">
-            <td>Food</td>
-            <td>
-                <div class="stars-outer">
-                <div class="stars-inner"></div>
-                </div>
-            </td>
-            </tr>
-            <tr class="value">
-            <td>Value</td>
-            <td>
-                <div class="stars-outer">
-                <div class="stars-inner"></div>
-                </div>
-            </td>
-            </tr>
-            <tr class="park">
-            <td>Park</td>
-            <td>
-                <div class="stars-outer">
-                <div class="stars-inner"></div>
-                </div>
-            </td>
-            </tr>
-        </tbody>
-        </table>
-    </div>
-    <div class="col s12 m2 offset-m2 center-align score">
-        <h5>Overall Score</h5>
-        <div class="number-circle-big">
-          {{ review.total_score }}
+        <div class="col s12 m6 right-align">
+            <h2>{{ review.pub_name }}</h2>
+            <p class="pub-address">{{ review.pub_address }}</p>
+            <a href="{{ review.website }}" target="_blank">Website <i class="fas fa-desktop"></i></a>
+            <p>{{ review.phone_number }} <i class="fas fa-phone"></i></a></p>
+            <div>
+                {% for category in categories %}
+                        <span class="chip">{{ category.category_name }}</span>
+                {% endfor%}
+            </div>
+            <!--Edit/Delete only visable to logged in users-->
+            {% if session.user %}
+                <a class="light-blue lighten-1 white-text btn-small" 
+                href="{{ url_for('edit_review', review_id=review._id) }}">
+                    <i class="fas fa-edit left"></i> Edit
+                </a>
+                <a class="red lighten-1 white-text btn-small" 
+                href="{{ url_for('delete_review', review_id=review._id) }}">
+                    <i class="fas fa-trash-alt left"></i> Delete
+                </a>
+            {% endif %}
         </div>
     </div>
-</div>
+    <!--main review text-->
+    <div class="row">
+        <div class="col s12">
+            <h5>{{ review.review_headline }}</h5>
+            <p>Reviewed on {{ review.review_date }} by {{ review.created_by | capitalize }}</p>
+            <h6>Grown Up Review</h6>
+            <p>{{ review.review_adult }}</p>
+            <h6>Kids Review</h6>
+            <p>{{ review.review_kids }}</p>       
+        </div>
+    </div>
+    <!--Review ratings-->
+    <div class="row">
+        <div class="col s12 m4 offset-m2">
+            <table class="centered striped">
+            <tbody>
+                <tr class="service">
+                <td>Service</td>
+                <td>
+                    <div class="stars-outer">
+                    <div class="stars-inner"></div>
+                    </div>
+                </td>
+                </tr>
+                <tr class="atmosphere">
+                <td>Atmosphere</td>
+                <td>
+                    <div class="stars-outer">
+                    <div class="stars-inner"></div>
+                    </div>
+                </td>
+                </tr>
+                <tr class="food">
+                <td>Food</td>
+                <td>
+                    <div class="stars-outer">
+                    <div class="stars-inner"></div>
+                    </div>
+                </td>
+                </tr>
+                <tr class="value">
+                <td>Value</td>
+                <td>
+                    <div class="stars-outer">
+                    <div class="stars-inner"></div>
+                    </div>
+                </td>
+                </tr>
+                <tr class="park">
+                <td>Park</td>
+                <td>
+                    <div class="stars-outer">
+                    <div class="stars-inner"></div>
+                    </div>
+                </td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+        <div class="col s12 m2 offset-m2 center-align score">
+            <h5>Overall Score</h5>
+            <div class="number-circle-big">
+            {{ review.total_score }}
+            </div>
+        </div>
+    </div>
 
 {% endblock %}
 
 {% block scripts %}
-<script>
-const ratings = {
-  service : {{ review.service }},
-  atmosphere : {{ review.atmosphere }},
-  food : {{ review.food }},
-  value : {{ review.value }},
-  park : {{ review.park }}
-};
+<!--js to create the stars for star rating-->
+    <script>
+        const ratings = {
+            service : {{ review.service }},
+            atmosphere : {{ review.atmosphere }},
+            food : {{ review.food }},
+            value : {{ review.value }},
+            park : {{ review.park }}
+        };
 
-const starTotal = 5;
- 
-for(const rating in ratings) {  
-  const starPercentage = (ratings[rating] / starTotal) * 100;
-  const starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;
-  document.querySelector(`.${rating} .stars-inner`).style.width = starPercentageRounded; 
-}
-</script>
+        const starTotal = 5;
+        
+        for(const rating in ratings) {  
+            const starPercentage = (ratings[rating] / starTotal) * 100;
+            const starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;
+            document.querySelector(`.${rating} .stars-inner`).style.width = starPercentageRounded; 
+        }
+    </script>
 {% endblock %}

@@ -2,16 +2,18 @@
 {% block content %}
 
     <h3 class="light-green-text text-darken-4 center-align">Categories</h3>
-{% if session.user %}
-    <div class="row">
-        <div class="col s12 center-align">
-            <a href="{{ url_for('add_category') }}" class="btn-large light-green darken-2 text-shadow">
-                Add Category <i class="fas fa-plus-square right"></i>
-            </a>
+    <!--Add category only visible to logged in users-->
+    {% if session.user %}
+        <div class="row">
+            <div class="col s12 center-align">
+                <a href="{{ url_for('add_category') }}" class="btn-large light-green darken-2 text-shadow">
+                    Add Category <i class="fas fa-plus-square right"></i>
+                </a>
+            </div>
         </div>
-    </div>
-{% endif %}
+    {% endif %}
     <div class="row">
+    <!--Shows all categories and will only show edit/delete for logged in users.-->
         {% for category in categories %}
             <div class="col s12 m6">
                 <div class="card light-green darken-4 text-shadow center-align">
