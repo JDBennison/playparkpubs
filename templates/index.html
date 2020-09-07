@@ -63,73 +63,40 @@
         <div class="col s12 center-align">
             {{ pagination.links }}
         </div>
-        <!--Review cards-->
+        
         {% for review in reviews %}
-            <div class="col s12">
-                <div class="card horizontal hoverable">
-                    <div class="card-image hide-on-med-and-down">
+        <div class="col s12 m6">
+            <a href="{{ url_for('read_review', review_id=review._id) }}" class="nav-link">
+                <div class="card hoverable">
+                    <div class="card-image ">
                         <img src="{{ review.photo_url }}" alt="{{ review.pub_name }} picture">
+                        <span class="card-title">{{ review.pub_name }}</span>
+                        {% if session.user|lower == review.created_by|lower %}
+                            <a class="btn-floating black-text halfway-fab waves-effect waves-light light-green tooltipped" data-position="left" data-tooltip="Edit"><i class="fas fa-pen"></i></a>
+                        {% endif %}
                     </div>
-                
-                    <div class="card-stacked">
-                        <div class="card-content light-green-text text-darken-4">
-                            <div class="row">
-                                <div class="col s8">
-                                    <span class="card-title">{{ review.pub_name }}</span>
-                                    <p class="pub-address">{{ review.pub_address }}</p>
-                                    <strong>{{ review.review_headline }}</strong>
-                                </div>
-                                <div class="col s4">
-                                    <div class="right number-circle">
-                                        {{ review.total_score }}
-                                    </div>
-                                </div>
+                    <div class="card-content light-green-text text-darken-4">
+                        <div class="row">
+                            <div class="col s8">
+                                <p class="pub-address">{{ review.pub_address }}</p>
+                                <strong>{{ review.review_headline }}</strong>
                             </div>
-                            <div class="row">
-                                <div class="col s12 ">
-                                <p class="review-truncate">{{ review.review_adult | truncate(200) }}</p>
+                            <div class="col s4">
+                                <div class="number-circle">
+                                    {{ review.total_score }}
                                 </div>
-                            </div>
-                            <div class="hide-on-large-only">
-                            <br>
-                            <!--Edit and delete only visable to logged in users-->
-                                <a class="light-green lighten-1 white-text btn-small right" 
-                                    href="{{ url_for('read_review', review_id=review._id) }}">
-                                        <i class="fas fa-align-left left"></i> Review
-                                </a>
-                                {% if session.user %}
-                                    <a class="light-blue lighten-1 white-text btn-small right" 
-                                        href="{{ url_for('edit_review', review_id=review._id) }}">
-                                            <i class="fas fa-edit left"></i> Edit
-                                    </a>
-                                    <a class="red lighten-1 white-text btn-small right" 
-                                        href="{{ url_for('delete_review', review_id=review._id) }}">
-                                            <i class="fas fa-trash-alt left"></i> Delete
-                                    </a>
-                                {% endif %}
-                                
                             </div>
                         </div>
-                        <div class="card-action hide-on-med-and-down">
-                            <a class="light-green lighten-1 white-text btn-small right" 
-                                href="{{ url_for('read_review', review_id=review._id) }}">
-                                    <i class="fas fa-align-left left"></i> Review
-                            </a>
-                            {% if session.user %}
-                                <a class="light-blue lighten-1 white-text btn-small right" 
-                                    href="{{ url_for('edit_review', review_id=review._id) }}">
-                                        <i class="fas fa-edit left"></i> Edit
-                                </a>
-                                <a class="red lighten-1 white-text btn-small right" 
-                                    href="{{ url_for('delete_review', review_id=review._id) }}">
-                                        <i class="fas fa-trash-alt left"></i> Delete
-                                </a>
-                            {% endif %}
+                        <div class="row">
+                            <div class="col s12 ">
+                            <p class="review-truncate">{{ review.review_adult | truncate(200) }}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            
+            </a>
+        </div>
+
         {% endfor %}
         <div class="col s12 center-align">
             {{ pagination.links }}

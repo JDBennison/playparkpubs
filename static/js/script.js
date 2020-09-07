@@ -3,6 +3,8 @@ $(document).ready(function(){
     $('select').formSelect();
     $('textarea#review_headline').characterCounter();
     $('.modal').modal();
+    $('.fixed-action-btn').floatingActionButton();
+    $('.tooltipped').tooltip();
     $('.datepicker').datepicker({
         format: "dd mmmm, yyyy",
         yearRange: 3,

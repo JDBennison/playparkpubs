@@ -13,19 +13,21 @@
             <p>{{ review.phone_number }} <i class="fas fa-phone"></i></a></p>
             <div>
                 {% for category in categories %}
-                        <span class="chip">{{ category.category_name }}</span>
+                        <a href="{{ url_for('review_by_category', category_id=category._id) }}"><span class="chip hoverable">{{ category.category_name }}</span></a>
                 {% endfor%}
             </div>
             <!--Edit/Delete only visable to logged in users-->
-            {% if session.user %}
-                <a class="light-blue lighten-1 white-text btn-small" 
-                href="{{ url_for('edit_review', review_id=review._id) }}">
-                    <i class="fas fa-edit left"></i> Edit
-                </a>
-                <a class="red lighten-1 white-text btn-small" 
-                href="{{ url_for('delete_review', review_id=review._id) }}">
-                    <i class="fas fa-trash-alt left"></i> Delete
-                </a>
+            {% if session.user|lower == review.created_by|lower %}
+                <div class="fixed-action-btn">
+                    <a class="btn-floating btn-large light-green darken-4">
+                        <i class="fas fa-pen"></i>
+                    </a>
+                    <ul>
+                        <li><a class="btn-floating red tooltipped modal-trigger" href="#modalconfirm" data-position="left" data-tooltip="Delete"><i class="fas fa-trash-alt"></i></a></li>
+                        <li><a href="{{ url_for('edit_review', review_id=review._id) }}" class="btn-floating blue tooltipped" data-position="left" data-tooltip="Edit"><i class="fas fa-edit"></i></a></li>
+                        <li><a href="{{ url_for('add_review') }}" class="btn-floating green tooltipped" data-position="left" data-tooltip="Add"><i class="far fa-plus-square"></i></a></li>
+                    </ul>
+                </div>
             {% endif %}
         </div>
     </div>
@@ -93,6 +95,17 @@
             <div class="number-circle-big">
             {{ review.total_score }}
             </div>
+        </div>
+    </div>
+
+    <div id="modalconfirm" class="modal">
+        <div class="modal-content">
+            <h4>Delete Review</h4>
+            <p>Are you sure you want to delete this review?</p>
+        </div>
+        <div class="modal-footer">
+            <a class="modal-close waves-effect waves-red btn-flat">Cancel</a>
+            <a href="{{ url_for('delete_review', review_id=review._id) }}" class="modal-close waves-effect waves-green btn-flat">Confirm</a>
         </div>
     </div>
 
