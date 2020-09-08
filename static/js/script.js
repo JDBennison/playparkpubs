@@ -3,7 +3,9 @@ $(document).ready(function(){
     $('select').formSelect();
     $('textarea#review_headline').characterCounter();
     $('.modal').modal();
-    $('.fixed-action-btn').floatingActionButton();
+    $('.fixed-action-btn').floatingActionButton({
+        hoverEnabled: false
+    });
     $('.tooltipped').tooltip();
     $('.datepicker').datepicker({
         format: "dd mmmm, yyyy",
