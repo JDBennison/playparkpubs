@@ -158,8 +158,19 @@ def review_by_category(category_id):
     for review in mongo.db.reviews.find():
         if category_id in review["category_list"]:
             reviews.append(review)
-    print(category)
-    return render_template("review_by_category.html", category=category, reviews=reviews)
+    page, per_page, offset = get_page_args(page_parameter='page', per_page_parameter='per_page')
+    total = len(reviews)
+    paginatedReviews = reviews[offset: offset + per_page]
+    pagination = Pagination(page=page, per_page=per_page, total=total,
+                            css_framework='materialize')
+    return render_template('review_by_category.html',
+                           reviews=paginatedReviews,
+                           page=page,
+                           per_page=per_page,
+                           pagination=pagination,
+                           category=category
+                           )
+   
 
 
 @app.route("/logout")

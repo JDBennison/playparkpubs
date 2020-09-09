@@ -71,9 +71,6 @@
                     <div class="card-image ">
                         <img src="{{ review.photo_url }}" alt="{{ review.pub_name }} picture">
                         <span class="card-title">{{ review.pub_name }}</span>
-                        {% if session.user|lower == review.created_by|lower %}
-                            <button class="btn-floating black-text halfway-fab waves-effect waves-light light-green tooltipped" data-position="left" data-tooltip="Edit"><i class="fas fa-pen"></i></button>
-                        {% endif %}
                     </div>
                     <div class="card-content light-green-text text-darken-4">
                         <div class="row">

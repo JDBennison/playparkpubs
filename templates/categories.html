@@ -3,34 +3,29 @@
 
     <h3 class="light-green-text text-darken-4 center-align">Categories</h3>
     <!--Add category only visible to logged in users-->
+    <div class="row">
+    <div class="col s12 m8">
+        <p>To view all the pubs in each category, simply click on the desired category below.</p>
+    </div>
     {% if session.user %}
-        <div class="row">
-            <div class="col s12 center-align">
+        
+            <div class="col s12 m4 center-align">
                 <a href="{{ url_for('add_category') }}" class="btn-large light-green darken-2 text-shadow">
                     Add Category <i class="fas fa-plus-square right"></i>
                 </a>
             </div>
-        </div>
+        
     {% endif %}
+    </div>
     <div class="row">
-    <!--Shows all categories and will only show edit/delete for logged in users.-->
+    <!--Shows all categories-->
         {% for category in categories %}
             <div class="col s12 m4">
                 <a href="{{ url_for('review_by_category', category_id=category._id) }}">
-                    <div class="card light-green darken-2 text-shadow center-align">
+                    <div class="card light-green darken-2 text-shadow center-align hoverable">
                         <div class="card-content white-text">
                             <span class="card-title">{{ category.category_name }}</span>
                         </div>
-                        {% if session.user %}
-                        <div class="card-action">
-                            <ul>
-                                <li><button class="btn-floating red"><i class="material-icons">insert_chart</i></button></li>
-                                <li><button class="btn-floating yellow darken-1"><i class="material-icons">format_quote</i></button></li>
-                            </ul>
-                        </div>    
-                               
-                            
-                        {% endif %}
                     </div>
                 </a>
             </div>
