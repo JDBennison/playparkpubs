@@ -16,8 +16,8 @@
                         <a href="{{ url_for('review_by_category', category_id=category._id) }}"><span class="chip hoverable">{{ category.category_name }}</span></a>
                 {% endfor%}
             </div>
-            <!--Edit/Delete only visable to logged in users-->
-            {% if session.user|lower == review.created_by|lower %}
+            <!--Edit/Delete only visable to user who created (or admin)-->
+            {% if session.user|lower == review.created_by|lower or session.user|lower == 'james' %}
                 <div class="fixed-action-btn">
                     <a class="btn-floating btn-large light-green darken-4">
                         <i class="fas fa-pen"></i>
