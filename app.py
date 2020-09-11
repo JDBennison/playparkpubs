@@ -197,7 +197,7 @@ def add_review():
         ratings = [int(request.form.get('service')), int(request.form.get('atmosphere')), int(request.form.get('food')), int(request.form.get('value')), int(request.form.get('park'))]
         total_score = round(((sum(ratings)) * 0.4), 1)
         photo = request.files['photo_url']
-        photo_upload = cloudinary.uploader.upload(photo)
+        photo_upload = cloudinary.uploader.upload(photo, upload_preset = "sixbxeod")
         review = {
             'pub_name': request.form.get('pub_name'),
             'pub_address': request.form.get('pub_address'),
