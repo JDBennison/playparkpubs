@@ -232,7 +232,7 @@ def edit_review(review_id):
         total_score = round(((sum(ratings)) * 0.4), 1)
         if request.form.get('file_name') != mongo.db.reviews.find_one({'_id': ObjectId(review_id)})['photo_url']: 
             photo = request.files['photo_url']
-            photo_upload = cloudinary.uploader.upload(photo)
+            photo_upload = cloudinary.uploader.upload(photo, upload_preset = "sixbxeod")
             submit = {
                 'pub_name': request.form.get('pub_name'),
                 'pub_address': request.form.get('pub_address'),

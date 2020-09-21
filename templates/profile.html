@@ -39,22 +39,23 @@
                             </a>
                         </td>
                         <td><a class="red lighten-1 white-text btn-floating hoverable modal-trigger" 
-                                href="#modalconfirm">
+                                href="#modal{{ review._id }}">
                                 <i class="fas fa-trash-alt"></i>
                             </a>
                         </td>
                     </tr>
-                <div id="modalconfirm" class="modal">
-                    <div class="modal-content">
-                        <h4>Delete Review</h4>
-                        <p>Are you sure you want to delete this review?</p>
+                    <div id="modal{{ review._id }}" class="modal">
+                        <div class="modal-content">
+                            <h4>Delete Review</h4>
+                            <p>Are you sure you want to delete this review?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <a class="modal-close waves-effect waves-red btn-flat">Cancel</a>
+                            <a href="{{ url_for('delete_review_profile', review_id=review._id) }}" class="modal-close waves-effect waves-green btn-flat">Confirm</a>
+                        </div>
                     </div>
-                    <div class="modal-footer">
-                        <a class="modal-close waves-effect waves-red btn-flat">Cancel</a>
-                        <a href="{{ url_for('delete_review_profile', review_id=review._id) }}" class="modal-close waves-effect waves-green btn-flat">Confirm</a>
-                    </div>
-                </div>
                 {% endfor %}
+                    
             </tbody>
         </table> 
     </div>
