@@ -16,7 +16,7 @@
                 <thead>
                     <tr>
                         <th>Pub Name</th>
-                        <th>Review Date</th>
+                        <th class="hide-on-small-only">Review Date</th>
                         <th>Total Score</th>
                         <th>Read</th>
                         <th>Edit</th>
@@ -26,7 +26,7 @@
                 {% for review in reviews %}
                     <tr>
                         <td><strong>{{ review.pub_name }}</strong></td>
-                        <td>{{ review.review_date }}</td>
+                        <td class="hide-on-small-only">{{ review.review_date }}</td>
                         <td><div class="number-table">{{ review.total_score }}</div></td>
                         <td><a class="light-green lighten-1 white-text btn-floating hoverable" 
                                 href="{{ url_for('read_review', review_id=review._id) }}">
