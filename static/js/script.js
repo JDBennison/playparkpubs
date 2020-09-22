@@ -15,6 +15,4 @@ $(document).ready(function(){
             done: "Select"
         }
     });
-    $('#textarea1').val('New Text');
-    M.textareaAutoResize($('#textarea1'));
 });

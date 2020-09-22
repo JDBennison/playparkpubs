@@ -177,7 +177,7 @@ def review_by_category(category_id):
 def logout():
     # remove user from session cookies
     flash('You have been logged out')
-    session.pop('user')
+    session.pop("user")
     return redirect(url_for('login'))
 
 
@@ -340,6 +340,14 @@ def edit_category(category_id):
 
 @app.route('/delete_category/<category_id>')
 def delete_category(category_id):
+    reviews = mongo.db.reviews.find()
+    for review in reviews:
+        if category_id in review['category_list']:
+            editArray = []
+            for category in review['category_list']:
+                if category != category_id:
+                    editArray.append(category)
+            mongo.db.reviews.update(review, { "$set": { "category_list": editArray } })
     mongo.db.categories.remove({'_id': ObjectId(category_id)})
     flash('Category Successfully Deleted')
     return redirect(url_for('get_categories'))

@@ -4,32 +4,52 @@
     <h3 class="light-green-text text-darken-4 center-align">Categories</h3>
     <!--Add category only visible to logged in users-->
     <div class="row">
-    <div class="col s12 m8">
+    <div class="col s12">
         <p>To view all the pubs in each category, simply click on the desired category below.</p>
     </div>
+    
     {% if session.user %}
         
-            <div class="col s12 m4 center-align">
-                <a href="{{ url_for('add_category') }}" class="btn-large light-green darken-2 text-shadow">
-                    Add Category <i class="fas fa-plus-square right"></i>
+            <div class="fixed-action-btn">
+                <a class="btn-floating btn-large light-green darken-4 tooltipped modal-trigger" href="{{ url_for('add_category') }}" data-position="left" data-tooltip="Add Category">
+                    <i class="fas fa-plus"></i>
                 </a>
             </div>
         
     {% endif %}
     </div>
+     <!--Shows all categories-->
     <div class="row">
-    <!--Shows all categories-->
         {% for category in categories %}
             <div class="col s12 m4">
-                <a href="{{ url_for('review_by_category', category_id=category._id) }}">
-                    <div class="card light-green darken-2 text-shadow center-align hoverable">
+                <div class="card hoverable light-green center">
+                    <a href="{{ url_for('review_by_category', category_id=category._id) }}">
                         <div class="card-content white-text">
                             <span class="card-title">{{ category.category_name }}</span>
                         </div>
-                    </div>
-                </a>
+                    </a>
+                    {% if session.user|lower == 'james' %}
+                        <div class="card-action">
+                            <a href="{{ url_for('edit_category', category_id=category._id) }}" class="blue lighten-1 white-text hoverable btn-floating tooltipped" data-position="top" data-tooltip="Edit Category"><i class="fas fa-edit"></i></a>
+                            <a href="#modal{{ category._id }}" class="red lighten-1 white-text btn-floating hoverable modal-trigger tooltipped" data-position="top" data-tooltip="Delete Category"><i class="fas fa-trash-alt"></i></a>
+                        </div>
+                    {% endif %}
+                </div>
             </div>
-        {% endfor %}
+            <div id="modal{{ category._id }}" class="modal">
+                    <div class="modal-content">
+                        <h4>Delete Category</h4>
+                        <p>If you delete this category it will remove it from all reviews.</p>
+                        <p>Do you still wish to proceed?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <a class="modal-close waves-effect waves-red btn-flat">Cancel</a>
+                        <a href="{{ url_for('delete_category', category_id=category._id) }}" class="modal-close waves-effect waves-green btn-flat">Confirm</a>
+                    </div>
+                </div>
+            {% endfor %}
     </div>
+    
+
 
 {% endblock %}
