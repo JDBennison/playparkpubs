@@ -1,3 +1,5 @@
+/*-----------------All pages*/
+
 .text-shadow {
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
 }
@@ -19,13 +21,73 @@ h4 {
     line-height: 2;
 }
 
+.btn-small {
+    margin-top: 4px;
+}
+
 .nav-link {
     display: block;
+}
+
+
+
+nav .brand-logo img {
+    width: 8rem;
+    height: auto;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    border: 3px solid black;
+}
+
+
+.line-spacing {
+    margin-left: 10px;
+}
+
+.page-footer {
+    padding-top: 0;
+}
+
+.footer-spacing {
+    margin-bottom: 0;
+}
+
+/*-----------------index.html*/
+
+.call-to-action {
+    margin-top: 55px;
 }
 
 .pagination li.active {
     background-color: #33691e;
 }
+
+.reviews {
+    background-color: #8bc34a;
+}
+
+.link {
+    display: flow-root;
+    margin: 15px;
+}
+
+.card.horizontal .card-image {
+    max-width: 40%;
+}
+
+.pub-address {
+    font-size: 10px;
+}
+
+.review-truncate {
+    font-size: 12px;
+    font-style: italic;
+}
+
+/*-----------------Review Forms*/
+
+
 
 label.active {
   color: #8bc34a !important;
@@ -53,159 +115,6 @@ textarea:focus {
     border-bottom: 2px solid #33691e;
 }
 
-.btn-small {
-    margin-top: 4px;
-}
-
-nav .brand-logo img {
-    width: 8rem;
-    height: auto;
-    position: absolute;
-    top: 5px;
-    left: 5px;
-    border: 3px solid black;
-}
-
-
-.line-spacing {
-    margin-left: 10px;
-}
-
-.page-footer {
-    padding-top: 0;
-}
-
-.footer-spacing {
-    margin-bottom: 0;
-}
-
-/*-----------------index.html*/
-.playground-img {
-    width: 100%;
-    height: auto;
-}
-
-.call-to-action {
-    margin-top: 55px;
-}
-
-
-
-.reviews {
-    background-color: #8bc34a;
-}
-
-.link {
-    display: flow-root;
-    margin: 15px;
-}
-
-.card.horizontal .card-image {
-    max-width: 40%;
-}
-
-.pub-address {
-    font-size: 10px;
-}
-
-.review-truncate {
-    font-size: 12px;
-    font-style: italic;
-}
-
-.number-circle {
-    width: 60px;
-    line-height: 55px;
-    border-radius: 30%;
-    text-align: center;
-    font-size: 32px;
-    border: 2px solid #666;
-    display: inline-block;
-    background-color: #8bc34a;
-    color: black;
-    margin-left: 20px;
-    margin-bottom: 20px;
-}
-
-.number-table {
-    width: 42px;
-    line-height: 37px;
-    border-radius: 35%;
-    text-align: center;
-    font-size: 20px;
-    border: 2px solid #666;
-    display: inline-block;
-    background-color: #8bc34a;
-    color: white;
-}
-
-.pub-name {
-    display: inline-block;
-    position: relative;
-    top: -7px;
-    left: 7px;
-}
-
-/*--------------------Reviews Page */
-.page-title {
-    padding-top: 25px;
-}
-
-
-
-.chip {
-  display: inline-block;
-  border-radius: 25px;
-  background-color: #f1f8e9;
-}
-
-.review-img {
-    width: 100%;
-    height: auto;
-    padding-top: 20px;
-}
-
-.stars-outer {
-  display: inline-block;
-  position: relative;
-  font-family: "Font Awesome 5 Free";
-}
- 
-.stars-outer::before {
-  content: "\f005 \f005 \f005 \f005 \f005";
-  font-weight: 400;
-}
- 
-.stars-inner {
-  position: absolute;
-  top: 0;
-  left: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  width: 0;
-}
- 
-.stars-inner::before {
-  content: "\f005 \f005 \f005 \f005 \f005";
-  color: #f8ce0b;
-  font-weight: 900;
-}
-
-.score {
-    height: 255px;
-}
-
-.number-circle-big {
-    width: 100px;
-    line-height: 90px;
-    border-radius: 30%;
-    text-align: center;
-    font-size: 51px;
-    border: 2px solid #666;
-    display: inline-block;
-    background-color: #8bc34a;
-    color: black;
-}
 
 .datepicker-table td.is-today {
     color: #8bc34a;
@@ -297,4 +206,100 @@ input[type=range]::-webkit-slider-thumb {
 
 .card-action .btn-floating {
     margin: 0 10px;
+}
+
+
+/*--------------------Reviews Page */
+.page-title {
+    padding-top: 25px;
+}
+
+
+
+.chip {
+  display: inline-block;
+  border-radius: 25px;
+  background-color: #f1f8e9;
+}
+
+.review-img {
+    width: 100%;
+    height: auto;
+    padding-top: 20px;
+}
+
+.stars-outer {
+  display: inline-block;
+  position: relative;
+  font-family: "Font Awesome 5 Free";
+}
+ 
+.stars-outer::before {
+  content: "\f005 \f005 \f005 \f005 \f005";
+  font-weight: 400;
+}
+ 
+.stars-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+}
+ 
+.stars-inner::before {
+  content: "\f005 \f005 \f005 \f005 \f005";
+  color: #f8ce0b;
+  font-weight: 900;
+}
+
+.score {
+    height: 255px;
+}
+
+
+.number-circle {
+    width: 60px;
+    line-height: 55px;
+    border-radius: 30%;
+    text-align: center;
+    font-size: 32px;
+    border: 2px solid #666;
+    display: inline-block;
+    background-color: #8bc34a;
+    color: black;
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+.number-table {
+    width: 42px;
+    line-height: 37px;
+    border-radius: 35%;
+    text-align: center;
+    font-size: 20px;
+    border: 2px solid #666;
+    display: inline-block;
+    background-color: #8bc34a;
+    color: white;
+}
+
+.pub-name {
+    display: inline-block;
+    position: relative;
+    top: -7px;
+    left: 7px;
+}
+
+.number-circle-big {
+    width: 100px;
+    line-height: 90px;
+    border-radius: 30%;
+    text-align: center;
+    font-size: 51px;
+    border: 2px solid #666;
+    display: inline-block;
+    background-color: #8bc34a;
+    color: black;
 }

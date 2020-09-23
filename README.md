@@ -50,11 +50,17 @@ All of the Add/Edit/Delete functionality is only visible to users who have logge
 
 ### Features Left to Implement
 * Log in/Register
+
 I will be adding in more secure features for the login and making the register hidden so that not everyone can register, only the people invited by us. Also want to hook up emails to verify accounts and the like.
 * Profile
+
 Would like more user details and the ability to change password. If users want to see who is reviewing they can click on their names and see who they are and what kind of things they like to make them more human.
 
-Technologies Used
+This would include things like pictures and biography too.
+* Condensing reviews
+
+If a user writes more than one review of the same pub I would like to be able to automatically make sure they get put on the same page as opposed to two different pages.
+## Technologies Used
 For the basics of front end I mostly used HTML5, CSS3 and Javascript and back end I used Python along with the following libraries and frameworks
 * [Materialize](https://materializecss.com/)
 	* For formatting and structure
@@ -78,3 +84,50 @@ For the basics of front end I mostly used HTML5, CSS3 and Javascript and back en
 	* To create the favicon.
 * [Cloudinary](https://cloudinary.com)
 	* To store photos in the cloud and retrieve URL
+
+## Testing
+
+
+## Deployment
+To deploy my application I used Heroku and there were a number of steps to follow before I could do this.
+1. To protect all of my environment content variables, I put these in an env.py file and added this to a .gitignore file so they weren't saved on Github for everyone to see. I also added them into Herokus Config Vars for production.
+2. I needed to make sure that I had a requirements.txt file with a list of all the packages I had installed to make my application run. In the console I simply typed in ```pip3 freeze > requirements.txt```.
+3. Creating a Procfile which is tells Heroku what command to run to make my app work. Mine simply says ```web: python app.py```
+4. Connect GitHub to Heroku. I found it much easier to go to the deploy menu on Heroku and connect it directly to my GitHub account so that when I pushed my code, it automatically deployed to Heroku.
+
+NOTE: I must also make sure Flask's debugging is False.
+
+**If there are any problems with deployment there will be a log of the error created which you can view on the Heroku dashboard.**
+
+### Cloning the project
+If you wish to clone the project to expand the ideas created there are a number of different ways to do this
+
+#### GitHub
+* To manally download it you can go to [my GitHub repo](https://github.com/JDBennison/playparkpubs) and upload it to your IED of choice.
+* Install the requirements.txt by typing in ```pip3 install -r requirements.txt```.
+* You will also need to update the environment variables before you run the app.
+    * app.config['MONGO_DBNAME'] = 'play_park_pubs'
+    * app.config['MONGO_URI'] = os.environ.get('MONGO_URI', 'mongodb://localhost')
+    * app.secret_key = os.environ.get('SECRET_KEY')
+
+Once done you can run Play Park Pubs by typing ```python3 app.py```
+
+#### CLI
+* Type the following into the CLI ```gh repo clone JDBennison/playparkpubs```
+* Install the requirements.txt by typing in ```pip3 install -r requirements.txt```.
+* You will also need to update the environment variables before you run the app.
+    * app.config['MONGO_DBNAME'] = 'play_park_pubs'
+    * app.config['MONGO_URI'] = os.environ.get('MONGO_URI', 'mongodb://localhost')
+    * app.secret_key = os.environ.get('SECRET_KEY')
+
+Once done you can run Play Park Pubs by typing ```python3 app.py```
+
+## Credits
+### Content
+All content was written by James Bennison and Victoria Storm with the assistance of Fraser (aged 7) and Evony (aged 5)
+### Media
+All pictures were taken by James Bennison and Victoria Storm
+### Acknowledgments
+I'd like to thank my amazing family for going to so many pubs with me to help me review them and for giving me honest feedback on what they thought of said pubs and play parks.
+
+I also need to say that this website has been Victoria's idea for years before I made it a reality.
