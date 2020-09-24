@@ -387,7 +387,6 @@ def edit_category(category_id):
     category = mongo.db.categories.find_one({'_id': ObjectId(category_id)})
     return render_template('edit_category.html', category=category)
 
-
 @app.route('/delete_category/<category_id>')
 def delete_category(category_id):
     """
@@ -405,6 +404,17 @@ def delete_category(category_id):
     mongo.db.categories.remove({'_id': ObjectId(category_id)})
     flash('Category Successfully Deleted')
     return redirect(url_for('get_categories'))
+
+
+@app.route('/contact_form', methods=['GET', 'POST'])
+def contact_form():
+    """
+    This function renders the contact form
+    """
+    if request.method == 'POST':
+        flash('Message Sent')
+        return redirect(url_for('index'))
+    return render_template('contact_form.html')
 
 
 

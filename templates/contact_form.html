@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h3 class="light-green-text text-darken-4 center-align">Contact Us</h3>
+<p class="light-green-text text-darken-4">Want us to come and review your pub? Want to write for us? Then fill out this form!</p>
+
+<div class="col s12">
+    <form onsubmit="return sendMail(this);" class="col s12" method="POST" action="{{ url_for('index') }}">
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="fas fa-user prefix light-green-text text-darken-4"></i>
+                <input id="contact_name" name="contact_name" type="text" class="validate" required>
+                <label for="contact_name">Name</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="fas fa-envelope prefix light-green-text text-darken-4"></i>
+                <input id="contact_email" name="contact_email" type="email" class="validate" required>
+                <label for="contact_email">Email</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="fas fa-pencil-alt prefix light-green-text text-darken-4"></i>
+                <textarea id="contact_message" class="materialize-textarea validate" required></textarea>
+                <label for="contact_message">Message</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field center col s12">
+                <button class="btn-large light-green darken-1 text-shadow" type="submit" name="action">
+                    Submit
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+<script src="{{ url_for('static', filename='js/sendEmail.js') }}"></script>
+
+{% endblock %}
