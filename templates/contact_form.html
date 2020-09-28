@@ -41,6 +41,24 @@
 
 {% block scripts %}
 
-<script src="{{ url_for('static', filename='js/sendEmail.js') }}"></script>
+<script>
+function sendMail(contactForm) {
+    emailjs.send("gmail", "playparkpubs", {
+        "from_name": contactForm.contact_name.value,
+        "from_email": contactForm.contact_email.value,
+        "website_message": contactForm.contact_message.value
+    })
+    .then(
+        function(response) {
+            console.log("SUCCESS", response);
+            window.location.href = "{{ url_for('contact_form_success') }}";
+        },
+        function(error) {
+            console.log("FAILED", error);
+        }
+    );
+    return false;  // To block from loading a new page
+}
+</script>
 
 {% endblock %}

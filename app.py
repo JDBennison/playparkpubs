@@ -411,12 +411,12 @@ def contact_form():
     """
     This function renders the contact form
     """
-    if request.method == 'POST':
-        flash('Message Sent')
-        return redirect(url_for('index'))
     return render_template('contact_form.html')
 
-
+@app.route('/contact_form_success')
+def contact_form_success():
+    flash('Message successfully sent')
+    return redirect(url_for('index'))
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
