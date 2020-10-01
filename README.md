@@ -60,6 +60,12 @@ This would include things like pictures and biography too.
 * Condensing reviews
 
 If a user writes more than one review of the same pub I would like to be able to automatically make sure they get put on the same page as opposed to two different pages.
+* Search by closest to
+
+I would like users to be able to type their postcode in and be able to see a list of results based on how close the pubs are to them. I would also like to add in a google maps API to show all of the pubs on a map for users to search visually too.
+* Image carousel
+
+I am planning to implement a way to let users upload more than one image so that at the bottom of the page there will be a carousel of all the images so that users can see a selection of pictures.
 ## Technologies Used
 For the basics of front end I mostly used HTML5, CSS3 and Javascript and back end I used Python along with the following libraries and frameworks
 * [Materialize](https://materializecss.com/)
@@ -86,7 +92,31 @@ For the basics of front end I mostly used HTML5, CSS3 and Javascript and back en
 	* To store photos in the cloud and retrieve URL
 
 ## Testing
+The appropriate validators have been used with no warnings for HTML, CSS, Javascript and Python. Manual testing was used extensively with there being no dead links.
+In regards to the original UX customer stories, the testing went as follows.
+* *As a parent I want to find somewhere to have good food and drink.* - I have provided a number of ways for customers to do this. On the main page it shows a list of reviews with the most recent reviews shown at the top of the page. This is done based on the inbuilt date element of the ID in MongoDB as opposed to the "date reviewed" field. So if a review put the review date for last month then their review would still appear at the top of the list because it was submitted today.
 
+    There is a search bar at the top which looks through the name of the pub, the address of the pub (so you can just type in the town where you are), and also the main bulk of the review for any keywords. If there are no results a warning appears and you can reset the results to get it back to the main homepage. These are paginated if there are more than 10 results.
+
+    There is also a "sort by" drop down so you can view the reviews in different ways. By the date reviewed (by default, most recent first but you can look at the oldest), alphabetically (ascending and descending) and by the reviews with the highest rating also. These are all paginated also.
+* *As a hungry person I want a way to find specific pubs that cater to my tastes so I can find the cuisine I like.* - There are various categories of food that reviewers can apply to each of the reviews. The reviewers also have a page where they can add extra categories in if there is something that hasn't been seen before. Reviewers that are logged in can also delete the categories with a confirmation message appearing to confirm they want to delete. This then removes the category from every review also.
+
+    As a user you can then click on the categories section and see all the categories, clicking on the one which you are interested in will then take you to all the reviews that have that category. These are paginated if there are over ten.
+
+    If you are looking at a review and see a category you are interested in you can click on that category and it will take you to a page which shows all the other reviews with that same cuisine.
+* *As a parent I want a pub with a good playground so that my kids will enjoy themselves.* - As well as the reviews from kids about the playgrounds and the ratings for the park specifically, we have tried, where possible, to make sure that all of the main images of the reviews are of the play parks so it is the first thing you see for each pub.
+
+    With the pictures you can upload any image file and it gets uploaded to Cloudinary, cropped and resized to be a square image. This works for all image types and will convert them all to jpgs.
+* *As a pub owner I want a way to contact the reviewers to ask them to review my pub.* - In the footer of each page there is a link for a contact form. Originally this was going to be modal but I found that no matter whether the form was submitted or not, clicking submit would close the modal so I converted this to a separate page which also has helped to put in a flash message which lets users know they have been successful.
+
+    During testing, this form does not submit unless every field has been filled in using the Materialize in built validation tools.
+* *As a reviewer of this website I want a simple interface to upload and edit my reviews.* - The add review button is always in the header when you are a logged in user, not if you are a regular user. The add review page and edit review page are the same except for the edit page being prefilled with the current values.
+
+    The add review page will not submit unless all fields are filled in, again using materialize's validation tools. For ease I have added a datepicker for the Date Visited field, a multiple selector for the category list (which dynamically updates when new categories are added) and sliders for the different ratings at the bottom. The sliders automatically calculate the total score based on the five different ratings given.
+
+    One particular bug which I have been unable to solve currently is in the category selector. This is the only thing that doesn't work with the valdiator. With any other field, if not filled in, there will be a pop up box to inform the user that they need to do so. With the selector, no such box appears, it does not change to red and the form is not submitted. This means that the user might not realise what is wrong with it and wont know why the form isnt submitting. I'm yet to work out how to fix this.
+
+In relation to the screen size alterations, mostly they remain the same, except for how many reviews show within a row. The main difference is on the index page, where the most recent box gets removed on smaller screens as it doesn't flow as nicely for the user.
 
 ## Deployment
 To deploy my application I used Heroku and there were a number of steps to follow before I could do this.

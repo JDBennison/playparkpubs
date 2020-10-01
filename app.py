@@ -148,6 +148,16 @@ def login():
     return render_template('login.html')
 
 
+@app.route('/logout')
+def logout():
+    """
+    Logs a user out by removing user from session cookies
+    """
+    flash('You have been logged out')
+    session.pop("user")
+    return redirect(url_for('login'))
+
+
 @app.route('/profile/<username>')
 def profile(username):
     """
@@ -157,6 +167,7 @@ def profile(username):
         {'username': session['user']})['username']
     reviews = mongo.db.reviews.find({'created_by': session['user']})
     return render_template('profile.html', username=username, reviews=reviews)
+
 
 @app.route('/review_by_category/<category_id>')
 def review_by_category(category_id):
@@ -180,16 +191,6 @@ def review_by_category(category_id):
                            pagination=pagination,
                            category=category
                            )
-
-
-@app.route('/logout')
-def logout():
-    """
-    Logs a user out by removing user from session cookies
-    """
-    flash('You have been logged out')
-    session.pop("user")
-    return redirect(url_for('login'))
 
 
 @app.route('/read_review/<review_id>', methods=['GET', 'POST'])
@@ -415,9 +416,13 @@ def contact_form():
 
 @app.route('/contact_form_success')
 def contact_form_success():
+    """
+    This function redirects back to the index page and
+    informs the user of a successfully submitted message
+    """
     flash('Message successfully sent')
     return redirect(url_for('index'))
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
-            port=int(os.environ.get('PORT')), debug=True)
+            port=int(os.environ.get('PORT')), debug=False)
