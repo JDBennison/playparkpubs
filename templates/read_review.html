@@ -17,7 +17,7 @@
                 {% endfor%}
             </div>
             <!--Edit/Delete only visable to user who created (or admin)-->
-            {% if session.user|lower == review.created_by|lower or session.user|lower == 'james' %}
+            {% if session.user|lower == review.created_by|lower or session.user|lower == 'james' or session.user|lower == 'admin' %}
                 <div class="fixed-action-btn">
                     <a class="btn-floating btn-large light-green darken-4">
                         <i class="fas fa-pen"></i>
