@@ -331,8 +331,12 @@ def delete_review(review_id):
     """
     This function deletes a review and then returns you to the main page
     """
-    mongo.db.reviews.remove({'_id': ObjectId(review_id)})
-    flash('Review Successfully Deleted')
+    created_by = mongo.db.reviews.find_one({'_id': ObjectId(review_id)})['created_by']
+    if 'user' in session:
+        if session['user'].lower() == created_by.lower() or session['user'].lower() == 'admin':
+            mongo.db.reviews.remove({'_id': ObjectId(review_id)})
+            flash('Review Successfully Deleted')
+    flash('You do not have access to delete this review')
     return redirect(url_for('index'))
 
 
@@ -342,8 +346,12 @@ def delete_review_profile(review_id):
     This function deletes a review from the profile page
     and then returns you to your profile
     """
-    mongo.db.reviews.remove({'_id': ObjectId(review_id)})
-    flash('Review Successfully Deleted')
+    created_by = mongo.db.reviews.find_one({'_id': ObjectId(review_id)})['created_by']
+    if 'user' in session:
+        if session['user'].lower() == created_by.lower() or session['user'].lower() == 'admin':
+            mongo.db.reviews.remove({'_id': ObjectId(review_id)})
+            flash('Review Successfully Deleted')
+    flash('You do not have access to delete this review')
     return redirect(url_for('profile', username=session['user']))
 
 
@@ -391,20 +399,24 @@ def edit_category(category_id):
 @app.route('/delete_category/<category_id>')
 def delete_category(category_id):
     """
-    This function deletes a category and updates all reviews to remove the category
-    from its category list array also
+    This function deletes a category and updates all reviews to 
+    remove the category from its category list array also
     """
-    reviews = mongo.db.reviews.find()
-    for review in reviews:
-        if category_id in review['category_list']:
-            edit_array = []
-            for category in review['category_list']:
-                if category != category_id:
-                    edit_array.append(category)
-            mongo.db.reviews.update(review, {"$set": {"category_list": edit_array}})
-    mongo.db.categories.remove({'_id': ObjectId(category_id)})
-    flash('Category Successfully Deleted')
-    return redirect(url_for('get_categories'))
+    if 'user' in session:
+        if session['user'].lower() == 'admin':
+            reviews = mongo.db.reviews.find()
+            for review in reviews:
+                if category_id in review['category_list']:
+                    edit_array = []
+                    for category in review['category_list']:
+                        if category != category_id:
+                            edit_array.append(category)
+                    mongo.db.reviews.update(review, {"$set": {"category_list": edit_array}})
+            mongo.db.categories.remove({'_id': ObjectId(category_id)})
+            flash('Category Successfully Deleted')
+            return redirect(url_for('get_categories'))
+    flash('You do not have access to delete this category')
+    return redirect(url_for('index'))
 
 
 @app.route('/contact_form', methods=['GET', 'POST'])
